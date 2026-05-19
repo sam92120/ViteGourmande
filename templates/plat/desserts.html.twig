@@ -1,0 +1,38 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Desserts{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <h1 class="text-center mb-5 fw-bold text-dark">
+            Nos délicieux desserts
+        </h1>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center mb-5">
+            {% for plat in desserts %}
+                <div class="col">
+                    <div class="card h-100 shadow menu-card">
+
+                        {% if plat.photo %}
+                            <img
+                                src="{{ asset('uploads/plats/' ~ plat.photo) }}"
+                                class="card-img-top image-menu shadow"
+                                alt="{{ plat.titrePlat }}"
+                            >
+                        {% endif %}
+
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{ plat.titrePlat }}
+                            </h5>
+                            <p class="card-text">
+                                {{ plat.description|default('Aucune description')|striptags|slice(0, 120) }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

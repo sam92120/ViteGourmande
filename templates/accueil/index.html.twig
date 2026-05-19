@@ -1,20 +1,109 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccueilController!{% endblock %}
+{% block title %}Vite&Gourmande{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container-fluid p-0  align-items-center d-flex flex-column justify-content-center"> 
+    <div class="row align-items-center w-100  hero-section">
+        <h4 class="display-4 text-center text-white fs-2  ">
+            Bienvenue chez <br> Vite&Gourmande !
+        </h4>
+        
+        <p><a href="{{ path('app_menu_index') }}" class="btn btn-primary btn-commande">Commander </a></p>
+    </div> 
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/metel/ProjetViteGourmand/ViteGourmande/src/Controller/AccueilController.php</code></li>
-        <li>Your template at <code>C:/Users/metel/ProjetViteGourmand/ViteGourmande/templates/accueil/index.html.twig</code></li>
-    </ul>
-</div>
+
+    <div class="row flex align-items-center w-100  hero-section1">
+       <div class="col">
+            <h2 class="display-4 text-center text-white fs-2 ">
+                Chez Vite&Gourmande 
+            </h2> <br> <br>
+            <p class="text-center police">
+            Cuisine raffinée à Bordeaux depuis 25 ans , nous préparons des plats faits maison ,
+            à parti produits frais. Chaque recette est élaborée avec soin pour vous offrir une expérience gustative unique.  Idéal pour vos repas du quotidien ou vos événements, 
+            nous assurons une livraison rapide à Bordeaux et ses environs. 
+            </p>
+                    <p class="text-center "><a href="{{ path('app_menu_index') }}" class="btn btn-primary btn-menu ">Nos Menus</a></p>
+        </div>
+
+        <div class="col p-5">
+            <img src="/image/Noel/Dinde rôtie de Noël.jpg" alt="Plat délicieux" class="img-fluid rounded">
+        </div>
+    </div> 
+
+
+
+
+<div class="border-top border-light p-2 "></div>
+      <div class="row flex align-items-center w-100  hero-section1">
+       <div class="col ">
+            <h2 class="display-4 text-center text-white fs-2 ">
+                Découvrez nos desserts
+            </h2> <br> <br>
+            <p class="text-center  police  ">
+            Cuisine raffinée à Bordeaux depuis 25 ans , nous préparons des plats faits maison ,
+            à parti produits frais. Chaque recette est élaborée avec soin pour vous offrir une expérience gustative unique.  Idéal pour vos repas du quotidien ou vos événements, 
+            nous assurons une livraison rapide à Bordeaux et ses environs. 
+            </p>
+            <p class="text-center">
+  <a href="{{ path('app_plat_desserts') }}" class="btn btn-primary btn-menu">
+    Nos Desserts
+</a>
+</p>
+
+
+        </div>
+        <div class="col p-5">
+            <img src="/image/Noel/Fruit dessert.jpg" alt="Plat délicieux" class="img-fluid ">
+        </div>
+    </div> 
+    <div class="border-top border-light p-2 "></div>
+
+
+
+
+<div class="border-top border-light p-2"></div>
+
+<div class="row align-items-center w-100 hero-section1">
+
+    <h1 class="text-center text-white fs-1">
+        Ils nous ont fait confiance
+    </h1>
+
+    <p class="stars text-center">★★★★★</p>
+
+    <p class="text-center text-white fs-5">
+        plus de 1000 clients satisfaits
+    </p>
+
+
+ {% for unAvis in avis %}
+    <div class="col text-white border border-white py-3 p-3 px-4 m-2">
+
+        <p>{{ unAvis.commentaire }}</p>
+
+        <p>
+            <strong>
+                {% if unAvis.user %}
+                    {{ unAvis.user.prenom }}
+                {% else %}
+                    Utilisateur inconnu
+                {% endif %}
+            </strong>
+        </p>
+
+        <p class="stars">
+            {% for i in 1..unAvis.note %}
+                ★
+            {% endfor %}
+        </p>
+
+    </div>
+{% endfor %}
+
+<div class="border-top border-light p-2"></div>
+
+
+
 {% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mot de passe oublié{% endblock %}
+
+{% block body %}
+
+<div class="container d-flex justify-content-center align-items-center mt-5">
+
+    <div class="shadow-lg p-5 bg-light rounded" style="width: 40rem;">
+
+        <h1 class="text-center mb-4">
+            Mot de passe oublié
+        </h1>
+
+        <p class="text-muted mb-4 text-center">
+            Entrez votre adresse email pour recevoir un lien de réinitialisation.
+        </p>
+
+        {{ form_start(requestForm) }}
+
+            {# EMAIL #}
+            {{ form_row(requestForm.email, {
+
+                label: 'Adresse email',
+
+                label_attr: {
+                    class: 'fs-5 fw-bold mb-2'
+                },
+
+                attr: {
+                    class: 'form-control form-control-lg',
+                    placeholder: 'exemple@email.com',
+                    style: 'height:55px; font-size:18px; '
+                }
+
+            }) }}
+
+            {# BUTTON #}
+            <button class="btn btn-dark w-100 btn-lg mt-4">
+                Envoyer le lien
+            </button>
+
+        {{ form_end(requestForm) }}
+
+    </div>
+
+</div>
+
+{% endblock %}

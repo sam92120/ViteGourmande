@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon avis{% endblock %}
+
+{% block body %}
+
+<div class="container my-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+                <div class="card-header text-white p-4" style="background-color: #0B3D2E;">
+
+                    <h1 class="h3 mb-1">
+                        Modifier mon avis
+                    </h1>
+
+                    <p class="mb-0 opacity-75">
+                        Vous pouvez modifier votre note et votre commentaire.
+                    </p>
+
+                </div>
+
+                <div class="card-body bg-light p-5">
+
+                    <div class="bg-white rounded-4 shadow-sm p-4">
+
+                        {{ include('avis/_form.html.twig', {
+                            'button_label': 'Enregistrer les modifications'
+                        }) }}
+
+                    </div>
+
+                </div>
+
+                <div class="card-footer bg-white p-4 d-flex justify-content-between flex-wrap gap-2">
+
+                    <a
+                        href="{{ path('app_avis_index') }}"
+                        class="btn btn-outline-secondary rounded-3"
+                    >
+                        ← Retour à mes avis
+                    </a>
+
+                    <div class="d-flex gap-2">
+
+                        <a
+                            href="{{ path('app_avis_show', {'id': avi.id}) }}"
+                            class="btn btn-outline-primary rounded-3"
+                        >
+                            Voir l’avis
+                        </a>
+
+                        {{ include('avis/_delete_form.html.twig') }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+:root {
+    --sidebar-bg: #111827;
+    --sidebar-menu-color: #f9fafb;
+    --sidebar-menu-active-item-color: #ffffff;
+    --sidebar-menu-active-item-bg: #f97316;
+
+    --body-bg: #f8fafc;
+    --link-color: #f97316;
+    --link-hover-color: #ea580c;
+    --button-primary-bg: #f97316;
+    --button-primary-color: #ffffff;
+}
+
+.sidebar {
+    background: linear-gradient(180deg, #3cc0a1, #1f2937) !important;
+}
+
+.sidebar .menu .menu-item a {
+    color: #f9fafb !important;
+    border-radius: 12px;
+    margin: 0px 1px;
+}
+
+.sidebar .menu .menu-item.active a,
+.sidebar .menu .menu-item a:hover {
+    background: #f97316 !important;
+    color: white !important;
+}
+
+.main-header {
+    background: white !important;
+    border-bottom: 2px solid #f97316;
+}
+
+.content-wrapper {
+    background: #f8fafc !important;
+}
+
+.content-panel,
+.datagrid {
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.btn-primary,
+.action-new {
+    background-color: #5219f1 !important;
+    border-color: #f97316 !important;
+}
+
+.btn-primary:hover,
+.action-new:hover {
+    background-color: #1335df !important;
+    border-color: #ea580c !important;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}

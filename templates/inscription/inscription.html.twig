@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    <style>
+        .control{
+            width: 100%;
+        }
+    </style>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="{{ path('app_accueil') }}">&larr; Retour à l'accueil</a>
+    </div>
+    <div class="container  d-flex justify-content-center mb-4 p-4  " >
+    <div class="row-1  shadow-lg p-4 mg-5 mt-5 bg-light rounded" style="width: 40rem;">
+    <h1 style="color:green">Inscrivez-vous</h1>
+    <div class="col-1 d-flex fs-4 p-3" >
+        {{ form_errors(registrationForm) }}
+        {{ form_start(registrationForm) }}
+        
+            {{ form_row(registrationForm.prenom, {
+                label: 'Prénom', label_attr: {'style': 'color: dark;'}
+            }) }}
+            {{ form_row(registrationForm.nom, {
+                label: 'Nom', label_attr: {'style': 'color: dark;'}
+            }) }}
+            
+            {{ form_row(registrationForm.email, {
+            label: 'Email', label_attr: {'style': 'color: dark;'}
+        }) }}
+
+                <!--format telephone-->
+            {{ form_row(registrationForm.phone, {
+                
+                label: 'phone', label_attr: {'style': 'color: dark;'}
+
+            }) }}
+            
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'mot de passe',  label_attr: {'style': 'color: dark;'}
+        }) }}
+        {{ form_row(registrationForm.agreeTerms ,{ label: "J'accepte les conditions d'utilisation", label_attr:{'style':'color:dark'}}) }}      
+
+        <button type="submit" class="btn btn-success control">Inscrit</button>
+    {{ form_end(registrationForm) }}
+    </div>
+    </div>
+    </div>
+{% endblock %}

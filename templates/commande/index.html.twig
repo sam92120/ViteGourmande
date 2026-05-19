@@ -1,0 +1,147 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes{% endblock %}
+
+{% block body %}
+
+<div class="container my-5">
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+        <div>
+            <h1 class="fw-bold mb-1">Mes commandes</h1>
+
+            <p class="text-muted mb-0">
+                Consultez et gérez vos commandes facilement.
+            </p>
+        </div>
+
+    </div>
+
+    {% if commandes is empty %}
+
+        <div class="alert alert-info rounded-4 shadow-sm">
+            Aucune commande trouvée.
+        </div>
+
+    {% else %}
+
+        <div class="row g-4">
+
+            {% for commande in commandes %}
+
+                <div class="col-lg-6">
+
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+
+                        <div class="card-header bg-dark text-white rounded-top-4 d-flex justify-content-between align-items-center">
+
+                            <div>
+                                <h5 class="mb-0">
+                                    Commande n°{{ commande.numeroCommande }}
+                                </h5>
+                            </div>
+
+                            <span class="
+                                badge px-3 py-2
+                                {% if commande.status == 'livree' %}
+                                    bg-success
+                                {% elseif commande.status == 'en_attente' %}
+                                    bg-warning text-dark
+                                {% elseif commande.status == 'annulee' %}
+                                    bg-danger
+                                {% else %}
+                                    bg-primary
+                                {% endif %}
+                            ">
+                                {{ commande.status|replace({'_':' '})|capitalize }}
+                            </span>
+
+                        </div>
+
+                        <div class="card-body bg-light">
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+                                    <strong>Date de commande :</strong><br>
+                                    {{ commande.dateCommande ? commande.dateCommande|date('d/m/Y') : 'Non renseignée' }}
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <strong>Date de prestation :</strong><br>
+                                    {{ commande.datePretation ? commande.datePretation|date('d/m/Y') : 'Non renseignée' }}
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <strong>Heure de livraison :</strong><br>
+                                    {{ commande.heureLivraison ? commande.heureLivraison|date('H:i') : 'Non renseignée' }}
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <strong>Nombre de personnes :</strong><br>
+                                    {{ commande.nbPers }}
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <strong>Prix menu :</strong><br>
+                                    {{ commande.prixMenu }} €
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <strong>Prix livraison :</strong><br>
+                                    {{ commande.prixLivraison }} €
+                                </div>
+
+                                <div class="col-md-12 mb-3">
+                                    <strong>Matériel prêté :</strong><br>
+
+                                    {% if commande.pretMateriel %}
+                                        {{ commande.pretMateriel }}
+                                    {% else %}
+                                        Aucun matériel prêté
+                                    {% endif %}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer bg-white d-flex justify-content-between flex-wrap gap-2 rounded-bottom-4">
+
+                            <a
+                                href="{{ path('app_commande_show', {'id': commande.id}) }}"
+                                class="btn btn-outline-primary rounded-3"
+                            >
+                                Voir
+                            </a>
+
+                            <a
+                                href="{{ path('app_commande_edit', {'id': commande.id}) }}"
+                                class="btn btn-outline-secondary rounded-3"
+                            >
+                                Modifier
+                            </a>
+
+                            <a
+                                href="{{ path('app_avis_new_commande', {'id': commande.id}) }}"
+                                class="btn btn-outline-success rounded-3"
+                            >
+                                Laisser un avis
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

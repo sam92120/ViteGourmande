@@ -1,0 +1,44 @@
+<h1>Bienvenue sur ViteGourmande 🍽️</h1>
+
+<p>
+    Bonjour et merci pour votre inscription !
+</p>
+
+<p>
+    Pour activer votre compte, veuillez confirmer votre adresse email
+    en cliquant sur le bouton ci-dessous :
+</p>
+
+<p style="margin:30px 0;">
+    <a
+        href="{{ signedUrl|raw }}"
+        style="
+            background:#212529;
+            color:white;
+            padding:12px 25px;
+            text-decoration:none;
+            border-radius:8px;
+            display:inline-block;
+            font-weight:bold;
+        "
+    >
+        Confirmer mon adresse email
+    </a>
+</p>
+
+<p>
+    Ce lien expirera dans
+    {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+</p>
+
+<hr>
+
+<p style="color:gray; font-size:14px;">
+    Si vous n'êtes pas à l'origine de cette inscription,
+    vous pouvez ignorer cet email.
+</p>
+
+<p>
+    À bientôt 👋<br>
+    <strong>ViteGourmande</strong>
+</p>

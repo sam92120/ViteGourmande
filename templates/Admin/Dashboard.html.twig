@@ -1,0 +1,46 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}
+    Tableau de bord administrateur
+{% endblock %}
+
+{% block main %}
+<div class="row g-4">
+
+    <div class="col-md-3">
+        <div class="card shadow-sm p-4 text-center " style="background-color: #8e8cf2;">
+            <h5>Commandes</h5>
+            <h2>{{ nbCommandes }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm p-4 text-center " style="background-color: #f28c8c;">
+            <h5>Avis en attente</h5>
+            <h2>{{ nbAvisEnAttente }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm p-4 text-center " style="background-color: #f0a500;" >
+            <h5>Menus</h5>
+            <h2>{{ nbMenus }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm p-4 text-center " style="background-color: #62afb4;">
+            <h5>Plats</h5>
+            <h2>{{ nbPlats }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm p-4 text-center" style="background-color: #679375;">
+            <h5>Utilisateurs</h5>
+            <h2>{{ nbUsers }}</h2>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

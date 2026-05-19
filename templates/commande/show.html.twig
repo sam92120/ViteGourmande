@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de la commande{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+
+    <div class="card shadow-sm rounded-4">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h1 class="h4 mb-0">
+                Commande n°{{ commande.numeroCommande }}
+            </h1>
+
+            <span class="badge bg-primary">
+                {{ commande.status|default('En attente') }}
+            </span>
+        </div>
+
+        <div class="card-body">
+
+            <h2 class="h5 mb-4">Informations de la commande</h2>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <strong>Date de commande :</strong><br>
+                    {{ commande.dateCommande ? commande.dateCommande|date('d/m/Y') : 'Non renseignée' }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Date de prestation :</strong><br>
+                    {{ commande.datePretation ? commande.datePretation|date('d/m/Y') : 'Non renseignée' }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Heure de livraison :</strong><br>
+                    {{ commande.heureLivraison ? commande.heureLivraison|date('H:i') : 'Non renseignée' }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Nombre de personnes :</strong><br>
+                    {{ commande.nbPers|default('Non renseigné') }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Prix du menu :</strong><br>
+                    {{ commande.prixMenu ? commande.prixMenu ~ ' €' : 'Non renseigné' }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Prix livraison :</strong><br>
+                    {{ commande.prixLivraison ? commande.prixLivraison ~ ' €' : 'Non renseigné' }}
+                </div>
+            </div>
+
+            <hr>
+
+            <h2 class="h5 mb-4">Matériel</h2>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <strong>Matériel prêté :</strong><br>
+                    {{ commande.pretMateriel|default('Aucun') }}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <strong>Matériel restitué :</strong><br>
+                    {{ commande.restiMateriel|default('Non renseigné') }}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-footer d-flex gap-2 justify-content-between flex-wrap">
+            <a href="{{ path('app_commande_index') }}" class="btn btn-secondary">
+                Retour à la liste
+            </a>
+
+            <div class="d-flex gap-2">
+                <a href="{{ path('app_commande_edit', {'id': commande.id}) }}" class="btn btn-warning">
+                    Modifier
+                </a>
+
+                {% if commande.status == 'en_attente' %}
+                    {% if is_granted('ROLE_EMPLOYE') and commande.status == 'en_attente' %}
+    <form method="post" action="{{ path('app_commande_valider', {'id': commande.id}) }}">
+        <button type="submit" class="btn btn-success">
+            Valider la commande
+        </button>
+    </form>
+{% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

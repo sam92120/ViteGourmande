@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>
+        Réinitialisation de votre mot de passe
+    </title>
+
+</head>
+
+<body style="
+    margin:0;
+    padding:0;
+    background-color:#f4f4f4;
+    font-family:Arial, sans-serif;
+">
+
+<table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 0;">
+
+    <tr>
+        <td align="center">
+
+            <table width="600" cellpadding="0" cellspacing="0" style="
+                background:#ffffff;
+                border-radius:12px;
+                overflow:hidden;
+                box-shadow:0 5px 20px rgba(0,0,0,0.08);
+            ">
+
+                {# HEADER #}
+                <tr>
+                    <td align="center" style="
+                        background:#111827;
+                        padding:30px;
+                        color:white;
+                    ">
+
+                        <h1 style="
+                            margin:0;
+                            font-size:28px;
+                        ">
+                            ViteGourmande
+                        </h1>
+
+                    </td>
+                </tr>
+
+                {# CONTENT #}
+                <tr>
+                    <td style="padding:40px;">
+
+                        <h2 style="
+                            margin-top:0;
+                            color:#111827;
+                        ">
+                            Réinitialisation du mot de passe
+                        </h2>
+
+                        <p style="
+                            color:#4b5563;
+                            line-height:1.7;
+                            font-size:16px;
+                        ">
+                            Bonjour,
+                        </p>
+
+                        <p style="
+                            color:#4b5563;
+                            line-height:1.7;
+                            font-size:16px;
+                        ">
+                            Vous avez demandé la réinitialisation de votre mot de passe.
+                            Cliquez sur le bouton ci-dessous pour choisir un nouveau mot de passe.
+                        </p>
+
+                        <div style="text-align:center; margin:35px 0;">
+
+                            <a href="{{ url('app_reset_password', {token: resetToken.token}) }}"
+                               style="
+                                   background:#111827;
+                                   color:white;
+                                   text-decoration:none;
+                                   padding:15px 30px;
+                                   border-radius:8px;
+                                   font-size:16px;
+                                   font-weight:bold;
+                                   display:inline-block;
+                               ">
+
+                                Réinitialiser mon mot de passe
+
+                            </a>
+
+                        </div>
+
+                        <p style="
+                            color:#6b7280;
+                            font-size:14px;
+                            line-height:1.6;
+                        ">
+                            Ce lien expirera dans
+                            <strong>
+                                {{ resetToken.expirationMessageKey|trans(
+                                    resetToken.expirationMessageData,
+                                    'ResetPasswordBundle'
+                                ) }}
+                            </strong>.
+                        </p>
+
+                        <p style="
+                            color:#6b7280;
+                            font-size:14px;
+                            line-height:1.6;
+                            margin-top:30px;
+                        ">
+                            Si vous n'êtes pas à l'origine de cette demande,
+                            vous pouvez ignorer cet email.
+                        </p>
+
+                    </td>
+                </tr>
+
+                {# FOOTER #}
+                <tr>
+                    <td align="center" style="
+                        background:#f9fafb;
+                        padding:20px;
+                        font-size:13px;
+                        color:#9ca3af;
+                    ">
+
+                        © {{ "now"|date("Y") }} ViteGourmande - Tous droits réservés
+
+                    </td>
+                </tr>
+
+            </table>
+
+        </td>
+    </tr>
+
+</table>
+
+</body>
+</html>

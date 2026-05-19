@@ -1,0 +1,393 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commander {{ menu.titre }}{% endblock %}
+
+{% block body %}
+
+<!--retour à la liste des menus-->
+<div class="container mt-4">
+    <a href="{{ path('app_menu_index') }}" class="btn btn-light border">
+            <i class="bi bi-arrow-left"></i>
+        Retour à la liste des menus
+    </a>
+
+
+{% if app.user %}
+    {% set user = app.user %}
+{% else %}
+    {% set user = null %}
+{% endif %}
+
+<div class="container mt-5">
+
+    <h1 class="text-center mb-5 fw-bold">
+        {{ menu.titre }}
+    </h1>
+
+    <div class="card p-4 mb-4 shadow">
+
+    <h3 class="mb-4">
+        Informations de la prestation
+    </h3>
+
+    <div class="row">
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Nom</label>
+            <input type="text" name="nom" value="{{ user.nom }}" class="form-control" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Prénom</label>
+            <input type="text" name="prenom" value="{{ user.prenom }}" class="form-control" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" value="{{ user.email }}" class="form-control" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Téléphone</label>
+            <input type="tel" name="telephone" value="{{ user.phone }}" class="form-control" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Date de prestation</label>
+            <input type="date" name="date_prestation" class="form-control" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Heure de livraison</label>
+            <input type="time" name="heure_livraison" class="form-control" required>
+        </div>
+
+        <div class="col-12 mb-3">
+            <label class="form-label">Adresse de livraison</label>
+            <input type="text" name="adresse_livraison" class="form-control" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Ville</label>
+            <input type="text" name="ville" class="form-control" required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Distance depuis Bordeaux (km)</label>
+            <input type="number" name="distance_km" value="0" min="0" class="form-control" required>
+        </div>
+
+    </div>
+
+</div>
+
+    <form method="post" action="{{ path('app_commande_menu_valider', {'id': menu.id}) }}">
+
+        <!-- NOMBRE DE PERSONNES -->
+        <div class="mb-4">
+
+            <label class="form-label fw-bold">
+                Nombre de personnes
+            </label>
+     <input
+    type="number"
+    name="nb_pers"
+    class="form-control"
+    min="{{ menu.nbPersMin }}"
+    value="{{ menu.nbPersMin }}"
+    required
+>
+        </div>
+
+        <div class="row">
+
+            <!-- PARTIE GAUCHE -->
+            <div class="col-md-8">
+
+                <!-- ETAPE PLAT -->
+                <div id="step-plat" class="step">
+
+                    <h2 class="mb-4">
+                        Choisissez votre plat principal
+                    </h2>
+
+                    {% for plat in platsPrincipaux %}
+
+                        <label class="card mb-4 shadow-sm overflow-hidden">
+
+                            {% if plat.photo %}
+                                <img
+                                    src="{{ asset('uploads/plats/' ~ plat.photo) }}"
+                                    class="card-img-top"
+                                    style="height:250px; object-fit:cover;"
+                                    alt="{{ plat.titrePlat }}"
+                                >
+                            {% endif %}
+
+                            <div class="card-body">
+
+                                <input
+                                    type="radio"
+                                    name="plat_principal_id"
+                                    value="{{ plat.id }}"
+                                    data-name="{{ plat.titrePlat }}"
+                                    required
+                                >
+
+                                <h5 class="mt-3">
+                                    {{ plat.titrePlat }}
+                                </h5>
+
+                            </div>
+
+                        </label>
+
+                    {% else %}
+
+                        <p>Aucun plat principal disponible.</p>
+
+                    {% endfor %}
+
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        onclick="nextStep('step-entree')"
+                    >
+                        Continuer
+                    </button>
+
+                </div>
+
+                <!-- ETAPE ENTREE -->
+                <div id="step-entree" class="step" style="display:none;">
+
+                    <h2 class="mb-4">
+                        Choisissez votre entrée
+                    </h2>
+
+                    {% for entree in entrees %}
+
+                        <label class="card mb-4 shadow-sm overflow-hidden">
+
+                            {% if entree.photo %}
+                                <img
+                                    src="{{ asset('uploads/plats/' ~ entree.photo) }}"
+                                    class="card-img-top"
+                                    style="height:250px; object-fit:cover;"
+                                    alt="{{ entree.titrePlat }}"
+                                >
+                            {% endif %}
+
+                            <div class="card-body">
+
+                                <input
+                                    type="radio"
+                                    name="entree_id"
+                                    value="{{ entree.id }}"
+                                    data-name="{{ entree.titrePlat }}"
+                                    required
+                                >
+
+                                <h5 class="mt-3">
+                                    {{ entree.titrePlat }}
+                                </h5>
+
+                            </div>
+
+                        </label>
+
+                    {% else %}
+
+                        <p>Aucune entrée disponible.</p>
+
+                    {% endfor %}
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        onclick="nextStep('step-plat')"
+                    >
+                        Retour
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        onclick="nextStep('step-dessert')"
+                    >
+                        Continuer
+                    </button>
+
+                </div>
+
+                <!-- ETAPE DESSERT -->
+                <div id="step-dessert" class="step" style="display:none;">
+
+                    <h2 class="mb-4">
+                        Choisissez votre dessert
+                    </h2>
+
+                    {% for dessert in desserts %}
+
+                        <label class="card mb-4 shadow-sm overflow-hidden">
+
+                            {% if dessert.photo %}
+                                <img
+                                    src="{{ asset('uploads/plats/' ~ dessert.photo) }}"
+                                    class="card-img-top"
+                                    style="height:250px; object-fit:cover;"
+                                    alt="{{ dessert.titrePlat }}"
+                                >
+                            {% endif %}
+
+                            <div class="card-body">
+
+                                <input
+                                    type="radio"
+                                    name="dessert_id"
+                                    value="{{ dessert.id }}"
+                                    data-name="{{ dessert.titrePlat }}"
+                                    required
+                                >
+
+                                <h5 class="mt-3">
+                                    {{ dessert.titrePlat }}
+                                </h5>
+
+                            </div>
+
+                        </label>
+
+                    {% else %}
+
+                        <p>Aucun dessert disponible.</p>
+
+                    {% endfor %}
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        onclick="nextStep('step-entree')"
+                    >
+                        Retour
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-success"
+                    >
+                        confirmer ma commande
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- RESUME -->
+            <div class="col-md-4">
+
+                <div class="card p-4 shadow sticky-top">
+
+                    <h3 class="mb-4">
+                        Votre menu
+                    </h3>
+
+                    <p>
+                        <strong>Plat principal :</strong><br>
+                        <span id="resume-plat">
+                            Aucun choix
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>Entrée :</strong><br>
+                        <span id="resume-entree">
+                            Aucun choix
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>Dessert :</strong><br>
+                        <span id="resume-dessert">
+                            Aucun choix
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>Nombre de personnes :</strong><br>
+                        <span id="resume-nb-pers">
+                            1
+                        </span>
+                    </p>
+
+                    <hr>
+
+                    <p class="fw-bold">
+                        Prix par personne :
+                        {{ menu.prixParPers }} €
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+
+function nextStep(stepId)
+{
+    document.querySelectorAll('.step').forEach(step => {
+        step.style.display = 'none';
+    });
+
+    document.getElementById(stepId).style.display = 'block';
+}
+
+document.querySelectorAll('input[name="plat_principal_id"]').forEach(input => {
+
+    input.addEventListener('change', () => {
+
+        document.getElementById('resume-plat').innerText =
+            input.dataset.name;
+
+    });
+
+});
+
+document.querySelectorAll('input[name="entree_id"]').forEach(input => {
+
+    input.addEventListener('change', () => {
+
+        document.getElementById('resume-entree').innerText =
+            input.dataset.name;
+
+    });
+
+});
+
+document.querySelectorAll('input[name="dessert_id"]').forEach(input => {
+
+    input.addEventListener('change', () => {
+
+        document.getElementById('resume-dessert').innerText =
+            input.dataset.name;
+
+    });
+
+});
+
+document.querySelector('input[name="nb_pers"]').addEventListener('input', function() {
+
+    document.getElementById('resume-nb-pers').innerText =
+        this.value;
+
+});
+
+</script>
+
+{% endblock %}

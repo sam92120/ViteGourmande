@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail du menu{% endblock %}
+
+{% block body %}
+<a href="{{ path('app_menu_index') }}" class="btn btn-light border mb-4">
+    <i class="bi bi-arrow-left"></i>
+     Retour à la liste des menus
+</a>
+<div class="container mt-5">
+    <div class="card shadow p-4">
+
+        <h1 class="mb-4">{{ menu.titre }}</h1>
+
+        <p><strong>Nombre minimum de personnes :</strong> {{ menu.nbPersMin }}</p>
+        <p><strong>Prix par personne :</strong> {{ menu.prixParPers }} €</p>
+        <p><strong>Régime :</strong> {{ menu.regime }}</p>
+        <p><strong>Description :</strong> {{ menu.description|striptags }}</p>
+        <p><strong>Quantité restante :</strong> {{ menu.quantiteRestante }}</p>
+        <p><strong>Thème :</strong> {{ menu.theme }}</p>
+        
+      {% if menu.quantiteRestante > 0 %}
+
+    {% if app.user %}
+
+        <a href="{{ path('app_commande_menu', {'id': menu.id}) }}" class="btn btn-success">
+            Commander ce menu
+        </a>
+
+    {% else %}
+
+        <a href="{{ path('app_login') }}" class="btn btn-primary">
+            Connectez-vous pour commander
+        </a>
+
+    {% endif %}
+
+{% else %}
+
+    <button class="btn btn-secondary" disabled>
+        Indisponible
+    </button>
+
+{% endif %}
+
+    </div>
+</div>
+{% endblock %}

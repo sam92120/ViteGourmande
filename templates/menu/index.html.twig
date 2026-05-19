@@ -1,0 +1,183 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Menus{% endblock %}
+
+{% block body %}
+
+<!--retour accueil-->
+<div class="d-flex justify-content-between align-items-center mb-4">
+<a href="{{ path('app_accueil') }}" class="btn btn-light border">
+    <i class="bi bi-arrow-left"></i>
+    Retour à l'accueil
+</a>
+</div>
+<div class="container mt-5 rounded-4 p-4 bg-light text-dark shadow">
+
+    <h1 class="text-center mb-5 fw-bold">
+        Nos Menus
+    </h1>
+
+
+   <form method="get" class="mb-4">
+
+    <div class="dropdown text-center mb-4">
+<button 
+    class="btn-coleur  dropdown-toggle w-100 d-flex justify-content-end align-items-center"
+    type="button" 
+    data-bs-toggle="dropdown"
+>
+    Filtres
+</button>
+
+        <div class="dropdown-menu dropdown-menu p-4 shadow" style="min-width: 100%;">
+
+            <div class="mb-3">
+                <label class="form-label">Régime</label>
+                <select name="regime" class="form-select">
+                    <option value="">Par défaut</option>
+                    <option value="">Tous les régimes</option>
+                    
+                    <option value="vegetarien" {{ app.request.query.get('regime') == 'vegetarien' ? 'selected' : '' }}>Végétarien</option>
+                    <option value="vegan" {{ app.request.query.get('regime') == 'vegan' ? 'selected' : '' }}>Vegan</option>
+                    <option value="halal" {{ app.request.query.get('regime') == 'halal' ? 'selected' : '' }}>Halal</option>
+                    <option value="sans_gluten" {{ app.request.query.get('regime') == 'sans_gluten' ? 'selected' : '' }}>Sans gluten</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Thème</label>
+                <select name="theme" class="form-select">
+                    <option value="">Par défaut</option>
+                    <option value="">Tous les thèmes</option>
+
+                    {% for theme in themes %}
+                        <option value="{{ theme.id }}" {{ app.request.query.get('theme') == theme.id ? 'selected' : '' }}>
+                            {{ theme.libelle }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label ">Prix par personne</label>
+                <select name="prix_par_pers" class="form-select">
+                    <option value="">Par défaut</option>
+                    <option value="asc" {{ app.request.query.get('prix_par_pers') == 'asc' ? 'selected' : '' }}>Prix croissant</option>
+                    <option value="desc" {{ app.request.query.get('prix_par_pers') == 'desc' ? 'selected' : '' }}>Prix décroissant</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Rechercher par nom</label>
+                <input 
+                    type="text" 
+                    name="type" 
+                    class="form-control" 
+                    placeholder="Entrez un mot-clé..." 
+                    value="{{ app.request.query.get('type') }}"
+                >
+            </div>
+            <div class="d-flex justify-content-between">
+                <a href="{{ path('app_menu_index') }}" class="btn btn-secondary">
+                    Réinitialiser
+                </a>
+
+                <button type="submit" class="btn btn-primary">
+                    Filtrer
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4  justify-content-center">
+
+        {% if menus is empty %}
+
+            <div class="col-12">
+                <p class="text-center text-muted fs-5">
+                    Aucun menu disponible pour le moment.
+                </p>
+            </div>
+
+        {% else %}
+
+            {% for menu in menus %}
+
+                {% set plat = menu.plats|first %}
+
+                <div class="col">
+
+                    <div class="card h-100 shadow menu-card">
+
+                        {% if plat and plat.photo %}
+                            <img
+                                src="{{ asset('uploads/plats/' ~ plat.photo) }}"
+                                class="card-img-top image-menu shadow"
+                                alt="{{ plat.titrePlat }}"
+                            >
+                        {% endif %}
+
+                        <div class="card-body d-flex flex-column ">
+
+                            <h5 class="card-title">
+                                {{ menu.titre }}
+                            </h5>
+                            <p class="card-text">
+                      {% if menu.description and menu.description|striptags|length > 120 %}
+    ...
+                      {% endif %}
+
+                       {% if menu.description and menu.description|striptags|length > 120 %}
+        ...
+                         {% endif %}
+                            </p>
+                            <p class="mb-1">
+                                <strong>Thème :</strong>
+                                {{ menu.theme.libelle|default('Non défini') }}
+                            </p>
+
+                            <p class="mb-1">
+                                <strong>Régime :</strong>
+                                {{ menu.regime|default('Non défini') }}
+                            </p>
+
+                            <p class="fw-bold text-dark mt-2">
+
+                                {% if menu.prixParPers is defined and menu.prixParPers %}
+                                    {{ menu.prixParPers }} €
+                                {% else %}
+                                    Prix non défini
+                                {% endif %}
+
+                            </p>
+
+                        </div>
+
+                        <div class="card-footer bg-white border-0 mt-auto">
+
+<a
+    href="{{ path('app_menu_show', {'id': menu.id}) }}"
+    class="btn btn-primary w-100"
+>
+    Voir le détail
+</a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Compte - Vite Gourmande</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #0B3D2E;">
+        <a class="navbar-brand text-white" href="{{ path('app_accueil') }}">Vite Gourmande</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ path('app_accueil') }}">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ path('app_logout') }}">Déconnexion</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5 p-4 bg-light rounded shadow">
+        <h1>Mon Profil</h1>
+        
+        <p><strong>Nom :</strong> {{ app.user.nom }}</p>
+        <p><strong>Prénom :</strong> {{ app.user.prenom }}</p>
+        <p><strong>Email :</strong> {{ app.user.email }}</p>
+        <p><strong>Adresse :</strong> {{ app.user.adresse }}</p>
+        <p><strong>Numéro de téléphone :</strong> {{ app.user.phone }}</p>
+         
+         
+        <!-- modification du profil -->
+        <a href="{{ path('app_moncompte_profil_modifier') }}" class="btn btn-secondary">Modifier mon profil</a>
+        <a href="{{ path('app_moncompte_profil_modifier_motdepasse') }}" class="btn btn-dark">Modifier mon mot de passe</a>
+        <a href="{{ path('app_moncompte') }}" class="btn btn-primary">Retour à Mon Compte</a>
+        <!--ajouter redirection vers les pas administrateur et employe-->
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('admin') }}" class="btn btn-secondary mt-3">Tableau de bord Admin</a>
+        {% elseif is_granted('ROLE_EMPLOYE') %}
+            <a href="{{ path('employe') }}" class="btn btn-secondary mt-3">Tableau de bord Employé</a>
+        {% endif %}
+    </div>
+
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

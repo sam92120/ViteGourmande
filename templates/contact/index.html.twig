@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Contact{% endblock %}</title>
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="icon" href="/image/logovitegourmande.png">
+        {% block stylesheets %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        {% endblock %}
+    </head>
+
+
+    <body>
+    <div class="container mt-4">
+    <a href="{{ path('app_accueil') }}" class="btn btn-success mb-4">
+        Retour à l'accueil
+    </a>
+</div>
+    <header>        
+<nav class="navbar  navbar-scrolled navbar-expand-lg bg-body-light text-light style="background-color: style="background-color: #0B3D2E;;">
+  <div class="container-fluid  text-light  px-4 "> 
+     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>   
+
+<div class="container my-5 rounded-4 p-4 bg-light text-dark shadow">
+
+
+    <h1 class="text-center text-success mb-4 ">Contactez-nous</h1>
+
+
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-8">
+<form method="POST">
+
+    <div class="mb-4">
+        <label class="form-label fw-bold">Nom complet</label>
+
+        <input
+            type="text"
+            name="nom"
+            class="form-control"
+            required
+        >
+    </div>
+
+    <div class="mb-4">
+        <label class="form-label fw-bold">Adresse email</label>
+
+        <input
+            type="email"
+            name="email"
+            class="form-control"
+            required
+        >
+    </div>
+
+    <div class="mb-4">
+        <label class="form-label fw-bold">Sujet</label>
+
+        <input
+            type="text"
+            name="sujet"
+            class="form-control"
+            required
+        >
+    </div>
+
+    <div class="mb-4">
+        <label class="form-label fw-bold">Message</label>
+
+        <textarea
+            name="message"
+            class="form-control"
+            rows="6"
+            required
+        ></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success w-100 py-2">
+        Envoyer le message
+    </button>
+
+</form>
+
+
+    </div>
+</div>
+</body>
+</html>

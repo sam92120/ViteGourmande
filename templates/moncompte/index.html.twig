@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Compte - Vite Gourmande</title>
+
+    <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    >
+</head>
+
+<body>
+<nav
+    class="navbar navbar-expand-lg navbar-light text-light"
+    style="background-color: #0B3D2E;"
+>
+
+    <a class="navbar-brand text-white" href="{{ path('app_accueil') }}">
+        Vite Gourmande
+    </a>
+
+    <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+    >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+                <a
+                    class="nav-link text-white"
+                    href="{{ path('app_accueil') }}"
+                >
+                    Accueil
+                </a>
+            </li>
+
+           
+
+        </ul>
+
+    </div>
+
+</nav>
+
+<div
+    class="container mt-5 border rounded shadow p-4"
+    style="background-color: #f8f9fa;"
+>
+
+    <div class="row justify-content-center text-center pt-5">
+
+        <div class="col p-4">
+
+            <h1 class="mb-4">
+                Mon Compte
+            </h1>
+
+            <p class="lead">
+                Bienvenue sur votre compte,
+                {{ app.user.prenom }}
+                {{ app.user.nom }} !
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="row justify-content-center text-center pb-5">
+
+        <div class="col-md-6 d-flex flex-column">
+
+            <a
+                href="{{ path('app_moncompte_profil') }}"
+                class="btn btn-primary btn-lg mb-3"
+            >
+                Voir mon profil
+            </a>
+
+            <a
+                href="{{ path('app_moncompte_profil_modifier') }}"
+                class="btn btn-secondary btn-lg mb-3"
+            >
+                Modifier mon profil
+            </a>
+                <a
+                    href="{{ path('app_moncompte_profil_modifier_motdepasse') }}"
+                    class="btn btn-secondary btn-lg mb-3"
+                >
+                    Modifier mon mot de passe
+                </a>
+
+            <a
+                href="{{ path('app_commande_index') }}"
+                class="btn btn-secondary btn-lg mb-3"
+            >
+                Mes commandes
+            </a>
+
+            
+
+            <a
+                href="{{ path('app_avis_index') }}"
+                class="btn btn-secondary btn-lg mb-3"
+            >
+                Mes avis
+            </a>
+                <a
+                    href="{{ path('app_notifications') }}"
+                    class="btn btn-secondary btn-lg mb-3"
+                >
+                    Mes notifications
+                </a>
+            <form
+                method="POST"
+                action="{{ path('app_user_delete', { id: app.user.id }) }}"
+            >
+
+                <input
+                    type="hidden"
+                    name="_token"
+                    value="{{ csrf_token('delete' ~ app.user.id) }}"
+                >
+
+                <button
+                    type="submit"
+                    class="btn btn-danger btn-lg mb-3 w-100"
+                    onclick="return confirm('Voulez-vous vraiment supprimer votre compte ? Cette action est irréversible.')"
+                >
+                    Supprimer mon compte
+                </button>
+
+            </form>
+
+            <a
+                href="{{ path('app_accueil') }}"
+                class=" btn btn-light border"
+                <i class="bi bi-arrow-left"></i>
+
+            >
+                Retour à l'accueil
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

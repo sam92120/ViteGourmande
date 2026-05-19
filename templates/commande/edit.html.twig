@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier ma commande{% endblock %}
+
+{% block body %}
+<div class="container my-5 ">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg rounded-4 border-0 overflow-hidden">
+
+                <div class="card-header text-white p-4" style="background-color: #0B3D2E;">
+                    <h1 class="h3 mb-1">Modifier ma commande</h1>
+                    <p class="mb-0 opacity-75">
+                        Commande n°{{ commande.numeroCommande|default('non attribuée') }}
+                    </p>
+                </div>
+
+                <div class="card-body p-4 bg-light">
+
+                    <div class="alert alert-info mb-4">
+                        Vous pouvez modifier uniquement la date, l’heure de livraison
+                        et le nombre de personnes.
+                    </div>
+
+                    <div class="bg-white rounded-4 p-4 shadow-sm">
+                        {{ include('commande/_form.html.twig', {
+                            'button_label': 'Enregistrer les modifications'
+                        }) }}
+                    </div>
+
+                </div>
+
+                <div class="card-footer bg-white p-4 d-flex justify-content-between flex-wrap gap-2">
+                    <a href="{{ path('app_commande_index') }}" class="btn btn-outline-secondary">
+                        ← Retour à mes commandes
+                    </a>
+
+                    <a href="{{ path('app_commande_show', {'id': commande.id}) }}" class="btn btn-outline-primary">
+                        Voir ma commande
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
