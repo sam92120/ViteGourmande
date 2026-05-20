@@ -1,0 +1,70 @@
+{
+    "app": {
+        "path": "\/assets\/app-TNXHCQF.js",
+        "type": "js"
+    },
+    "\/assets\/stimulus_bootstrap.js": {
+        "path": "\/assets\/stimulus_bootstrap-xCO4u8H.js",
+        "type": "js"
+    },
+    "\/assets\/@symfony\/stimulus-bundle\/controllers.js": {
+        "path": "\/assets\/@symfony\/stimulus-bundle\/controllers-yeQSOuM.js",
+        "type": "js"
+    },
+    "\/assets\/@symfony\/ux-chartjs\/controller.js": {
+        "path": "\/assets\/@symfony\/ux-chartjs\/controller-Gcnh5ai.js",
+        "type": "js"
+    },
+    "\/assets\/@symfony\/ux-live-component\/live_controller.js": {
+        "path": "\/assets\/@symfony\/ux-live-component\/live_controller-qMGNvHD.js",
+        "type": "js"
+    },
+    "\/assets\/@symfony\/ux-live-component\/live.min.css": {
+        "path": "\/assets\/@symfony\/ux-live-component\/live.min-WRZuO3t.css",
+        "type": "css"
+    },
+    "\/assets\/controllers\/hello_controller.js": {
+        "path": "\/assets\/controllers\/hello_controller-VYgvytJ.js",
+        "type": "js"
+    },
+    "\/assets\/controllers\/csrf_protection_controller.js": {
+        "path": "\/assets\/controllers\/csrf_protection_controller-6ynUAeX.js",
+        "type": "js"
+    },
+    "\/assets\/styles\/app.css": {
+        "path": "\/assets\/styles\/app-8Mbrm9P.css",
+        "type": "css"
+    },
+    "bootstrap": {
+        "path": "\/assets\/vendor\/bootstrap\/bootstrap.index-HgGqGv8.js",
+        "type": "js"
+    },
+    "@popperjs\/core": {
+        "path": "\/assets\/vendor\/@popperjs\/core\/core.index-QBO6pjP.js",
+        "type": "js"
+    },
+    "bootstrap\/dist\/css\/bootstrap.min.css": {
+        "path": "\/assets\/vendor\/bootstrap\/dist\/css\/bootstrap.min-z0zQt-h.css",
+        "type": "css"
+    },
+    "@hotwired\/stimulus": {
+        "path": "\/assets\/vendor\/@hotwired\/stimulus\/stimulus.index-S4zNcea.js",
+        "type": "js"
+    },
+    "@symfony\/stimulus-bundle": {
+        "path": "\/assets\/@symfony\/stimulus-bundle\/loader-IOzBDLu.js",
+        "type": "js"
+    },
+    "@symfony\/ux-live-component": {
+        "path": "\/assets\/@symfony\/ux-live-component\/live_controller-qMGNvHD.js",
+        "type": "js"
+    },
+    "chart.js": {
+        "path": "\/assets\/vendor\/chart.js\/chart.js.index-sEndej9.js",
+        "type": "js"
+    },
+    "@kurkle\/color": {
+        "path": "\/assets\/vendor\/@kurkle\/color\/color.index-y5ZDtDB.js",
+        "type": "js"
+    }
+}
