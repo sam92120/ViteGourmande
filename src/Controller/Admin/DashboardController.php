@@ -47,7 +47,7 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
            
-     return $this->render('admin/dashboard.html.twig', [
+     return $this->render('Admin/dashboard.html.twig', [
         'nbCommandes' => $this->commandeRepository->count([]),
         'nbAvisEnAttente' => $this->avisRepository->count(['isApproved' => false]),
         'nbMenus' => $this->menuRepository->count([]),
