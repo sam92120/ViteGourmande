@@ -14,7 +14,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mime\Email;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 
-
 class UserCrudController extends AbstractCrudController
 {
 
@@ -39,6 +38,7 @@ public function __construct(
             TextField::new('email'),
             TextField::new('password')->onlyOnForms(),
             BooleanField::new('isActive', 'Actif'),
+            ArrayField::new('roles'),
 
             
             
@@ -71,11 +71,24 @@ public function __construct(
             <h2>Bienvenue sur ViteGourmande</h2>
             <p>Votre compte a été créé par un administrateur.</p>
             <p><strong>Email :</strong> {$entityInstance->getEmail()}</p>
-            <p><strong>Mot de passe temporaire :</strong> {$plainPassword}</p>
+               <p><strong>Mot de passe temporaire :</strong> {$plainPassword}</p>
             <p>Connectez-vous puis changez votre mot de passe.</p>
+            <p>Merci de votre confiance !</p>
+            <
         ");
 
     $this->mailer->send($email);
 }
+
+public function configureCrud(Crud $crud): Crud
+{
+    // Personnalisation des titres et labels
+    return $crud
+        ->setEntityLabelInPlural('administrateurs')
+        ->setPageTitle(Crud::PAGE_INDEX, 'Gestion des administrateurs')
+        ->setPageTitle(Crud::PAGE_EDIT, 'Modifier un administrateur')
+        ->setPageTitle(Crud::PAGE_NEW, 'Créer un administrateur');
     
+}
+
 }

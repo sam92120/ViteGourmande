@@ -13,7 +13,11 @@ use Override;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-
+use App\Controller\Admin\MenuCrudController;
+use App\Controller\Admin\PlatCrudController;
+use App\Controller\Admin\CommandeCrudController;
+use App\Controller\Admin\HoraireCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 
 
 #[IsGranted('ROLE_EMPLOYEE')]
@@ -46,21 +50,23 @@ class EmployeeDashboardController extends AbstractDashboardController
         yield MenuItem::linkTo(PlatCrudController::class, 'Plats', 'fa-solid fa-bowl-food');
         yield MenuItem::linkTo(CommandeCrudController::class, 'Commandes', 'fa-solid fa-cart-shopping');
         yield MenuItem::linkTo(HoraireCrudController::class, 'Horaires', 'fa-solid fa-clock');
-        //yield MenuItem::linkTo(AvisCrudController::class, 'Avis', 'fa-solid fa-comment');
-        //yield MenuItem::linkTo(ThemeCrudController::class, 'Thèmes', 'fa-solid fa-palette');
         yield MenuItem::section('pour les employés');
         yield MenuItem::linkToRoute('Retour au site', 'fa fa-undo', 'app_accueil');
         yield MenuItem::linkToLogout('Déconnexion', 'fa-solid fa-right-from-bracket');
+        yield MenuItem::linkToExitImpersonation('Stop impersonation', 'fa fa-exit');
+        
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu
     {
         return parent::configureUserMenu($user)
+             ->setAvatarUrl('/image/logovitegourmande.png')
             ->setName((string) $user)
             ->displayUserAvatar(false)
             ->addMenuItems([
                 MenuItem::linkToLogout('Déconnexion', 'fa fa-sign-out'),
             ]);
+
     }
 
     #[Override]
@@ -73,6 +79,12 @@ class EmployeeDashboardController extends AbstractDashboardController
     public function configureActions(): Actions
     {
         return parent::configureActions();
+    }
+
+    public function configureAssets(): Assets
+    {
+        return Assets::new()
+            ->addCssFile('/admin.css');
     }
     
 }

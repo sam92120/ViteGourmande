@@ -23,7 +23,8 @@ use App\Repository\CommandeRepository;
 use App\Repository\AvisRepository;
 use App\Repository\MenuRepository;
 use App\Repository\PlatRepository;
-use App\Repository\UserRepository;  
+use App\Repository\UserRepository;
+
 
 
 
@@ -32,6 +33,8 @@ use App\Repository\UserRepository;
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 class DashboardController extends AbstractDashboardController
 {
+
+//
     public function __construct( private ChartBuilderInterface $chartBuilderInterface,
     private CommandeRepository $commandeRepository,
     private AvisRepository $avisRepository,
@@ -52,7 +55,9 @@ class DashboardController extends AbstractDashboardController
         'nbAvisEnAttente' => $this->avisRepository->count(['isApproved' => false]),
         'nbMenus' => $this->menuRepository->count([]),
         'nbPlats' => $this->platRepository->count([]),
+        //nombre de plat lies à chaque menu
         'nbUsers' => $this->userRepository->count([]),
+        
     ]);
     
     
@@ -87,6 +92,7 @@ class DashboardController extends AbstractDashboardController
     {
         //couleur du thème
         return Dashboard::new()
+             
             ->generateRelativeUrls()
             ->setTranslationDomain('admin dashboard')
             ->disableDarkMode()
@@ -103,12 +109,12 @@ class DashboardController extends AbstractDashboardController
                 'fr' => '🇫🇷 Français'
             ]);
 
-            
-            
         
 
 
     }
+
+
 
     public function configureMenuItems(): iterable
     {
@@ -122,10 +128,11 @@ class DashboardController extends AbstractDashboardController
     yield MenuItem::linkTo(ThemeCrudController::class, 'Themes', 'fa-solid fa-palette');
     yield MenuItem::LinkTo(HoraireCrudController::class, 'Horaires', 'fa-solid fa-clock');
     yield MenuItem::linkTo(UserCrudController::class, 'Users', 'fa-solid fa-users');
+    
     yield MenuItem::linkToExitImpersonation('Stop impersonation', 'fa fa-exit');
-    yield MenuItem::linkToLogout('Logout', 'fa-solid fa-right-from-bracket');
-    yield MenuItem::section('Autres');
     yield MenuItem::linkToRoute('Back to the website', 'fa fa-undo', 'app_accueil');
+    yield MenuItem::linkToLogout('Logout', 'fa-solid fa-right-from-bracket');
+    
     }
 
     public function configureAssets(): Assets
@@ -153,6 +160,8 @@ class DashboardController extends AbstractDashboardController
         return Crud::new()
             ->setDefaultSort(['id' => 'DESC']);
     }
+
+    
 
 }
 

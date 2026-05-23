@@ -28,7 +28,15 @@ class PlatCrudController extends AbstractCrudController
             TextField::new('titreplat'),
             ImageField::new('photo')
             ->setBasePath('uploads/plats')
-            ->setUploadDir('public/uploads/plats'),
+            ->setUploadDir('public/uploads/plats')
+            ->setUploadedFileNamePattern('[randomhash].[extension]')
+            ->setRequired(false)
+            ->setLabel('Photo du plat')
+            ->setHelp('Téléchargez une image pour le plat.')
+            ->setFormTypeOptions([
+                'attr' => ['accept' => 'image/*'],
+            ])
+            ->onlyOnForms(),
             TextField::new('allergene'),
             TextField::new('type'),
 
