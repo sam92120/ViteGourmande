@@ -19,14 +19,16 @@ use App\Repository\MenuRepository;
 #[Route('/commande')]
 final class CommandeController extends AbstractController
 {
-    #[Route(name: 'app_commande_index', methods: ['GET'])]
-    public function index(CommandeRepository $commandeRepository , Request $request): Response
-    {
-        
-        return $this->render('commande/index.html.twig', [
-            'commandes' => $commandeRepository->findAll(),
-        ]);
-    }
+ #[Route(name: 'app_commande_index', methods: ['GET'])]
+public function index(CommandeRepository $commandeRepository): Response
+{
+    return $this->render('commande/index.html.twig', [
+        'commandes' => $commandeRepository->findBy([
+            'user' => $this->getUser()
+        ]),
+    ]);
+}
+
 
 #[Route('/new', name: 'app_commande_new', methods: ['GET', 'POST'])]
 public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -200,10 +202,22 @@ $commande->setHeureLivraison($heureLivraison);
     // IMPORTANT
     $commande->setPrixMenu($prixMenu);
 
-    $commande->setPrixLivraison($prixLivraison);
+  $commande->setPrixLivraison($prixLivraison);
 
-    $entityManager->persist($commande);
-    $entityManager->flush();
+if ($menu->getQuantiteRestante() < $nbPers) {
+    $this->addFlash('danger', 'Quantité insuffisante.');
+
+    return $this->redirectToRoute('app_menu_show', [
+        'id' => $menu->getId()
+    ]);
+}
+
+$menu->setQuantiteRestante(
+    $menu->getQuantiteRestante() - $nbPers
+);
+
+$entityManager->persist($commande);
+$entityManager->flush();
 
     return $this->redirectToRoute(
         'app_commande_show',
