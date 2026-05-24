@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\Time;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
 class Commande
@@ -26,7 +25,7 @@ class Commande
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $datePretation = null;
 
-
+    #[ORM\Column(nullable: true)]
     private ?float $prixMenu = null;
 
     #[ORM\Column(nullable: true)]
@@ -64,7 +63,11 @@ class Commande
     /**
      * @var Collection<int, Notification>
      */
-    #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'commande',cascade: ['persist'])]
+    #[ORM\OneToMany(
+        targetEntity: Notification::class,
+        mappedBy: 'commande',
+        cascade: ['persist']
+    )]
     private Collection $notifications;
 
     #[ORM\Column(length: 50, nullable: true)]
@@ -74,8 +77,7 @@ class Commande
     private ?string $motifAnnulation = null;
 
     #[ORM\Column(options: ['default' => false])]
-     private ?bool $materielPrete = false;
-
+    private ?bool $materielPrete = false;
 
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     private ?\DateTime $heure_livraison = null;
@@ -125,9 +127,6 @@ class Commande
 
         return $this;
     }
-
-  
-  
 
     public function getPrixMenu(): ?float
     {
@@ -282,7 +281,7 @@ class Commande
     public function removeNotification(Notification $notification): static
     {
         if ($this->notifications->removeElement($notification)) {
-            // set the owning side to null (unless already changed)
+
             if ($notification->getCommande() === $this) {
                 $notification->setCommande(null);
             }

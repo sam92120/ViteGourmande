@@ -123,62 +123,94 @@ public function validerMenu(
     EntityManagerInterface $entityManager,
     PlatRepository $platRepository
 ): Response {
+
     $commande = new Commande();
 
-    $platPrincipal = $platRepository->find($request->request->get('plat_principal_id'));
-    $entree = $platRepository->find($request->request->get('entree_id'));
-    $dessert = $platRepository->find($request->request->get('dessert_id'));
+    $platPrincipal = $platRepository->find(
+        $request->request->get('plat_principal_id')
+    );
 
+    $entree = $platRepository->find(
+        $request->request->get('entree_id')
+    );
+
+    $dessert = $platRepository->find(
+        $request->request->get('dessert_id')
+    );
+
+    // Nombre de personnes
+    $nbPers = max(
+        $menu->getNbPersMin(),
+        (int) $request->request->get(
+            'nb_pers',
+            $menu->getNbPersMin()
+        )
+    );
+
+    // Calcul prix menu
+    $prixMenu = $menu->getPrixParPers() * $nbPers;
+
+    // Réduction 10%
+    if ($nbPers >= $menu->getNbPersMin() + 5) {
+        $prixMenu *= 0.90;
+    }
+
+    // Livraison
+    $distanceKm = (float) $request->request->get(
+        'distance_km',
+        0
+    );
+
+    $prixLivraison = 0;
+
+    if (
+        strtolower($request->request->get('ville')) !== 'bordeaux'
+    ) {
+        $prixLivraison = 5 + (0.59 * $distanceKm);
+    }
+
+    // Remplissage commande
     $commande->setMenu($menu);
     $commande->setUser($this->getUser());
     $commande->setPlatPrincipal($platPrincipal);
     $commande->setEntree($entree);
     $commande->setDessert($dessert);
+
     $commande->setStatus('en_attente');
+
     $commande->setDateCommande(new \DateTime());
-    $commande->setDatePretation(
+
+   $commande->setDatePretation(
     new \DateTime($request->request->get('date_prestation'))
 );
-    $commande->setHeureLivraison(
+
+$heureLivraison = \DateTime::createFromFormat(
+    'H:i',
     $request->request->get('heure_livraison')
 );
-    $commande->setPrixMenu($menu->getPrixParPers());
-    $commande->setNumeroCommande(random_int(100000, 999999));
-   $nbPers = max(
-    $menu->getNbPersMin(),
-    (int) $request->request->get('nb_pers', $menu->getNbPersMin())
-);
 
-$prixMenu = $menu->getPrixParPers() * $nbPers;
+$commande->setHeureLivraison($heureLivraison);
 
-if ($nbPers >= $menu->getNbPersMin() + 5) {
-    $prixMenu *= 0.90;
-}
+    $commande->setNumeroCommande(
+        random_int(100000, 999999)
+    );
 
-$distanceKm = (float) $request->request->get('distance_km', 0);
+    $commande->setNbPers($nbPers);
 
-$prixLivraison = 0;
+    // IMPORTANT
+    $commande->setPrixMenu($prixMenu);
 
-if (strtolower($request->request->get('ville')) !== 'bordeaux') {
-    $prixLivraison = 5 + (0.59 * $distanceKm);
-}
+    $commande->setPrixLivraison($prixLivraison);
 
-$commande->setNbPers($nbPers);
-$commande->setPrixMenu($prixMenu);
-$commande->setPrixLivraison($prixLivraison);
-
-$commande->setNbPers($nbPers);
-
-$commande->setPrixMenu(
-    $menu->getPrixParPers() * $nbPers
-);
-    
     $entityManager->persist($commande);
     $entityManager->flush();
 
-    return $this->redirectToRoute('app_commande_show', [
-        'id' => $commande->getId()
-    ]);
+    return $this->redirectToRoute(
+        'app_commande_show',
+        [
+            'id' => $commande->getId()
+        ]
+    );
 }
 
 

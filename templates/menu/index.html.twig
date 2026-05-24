@@ -127,14 +127,11 @@
                             <h5 class="card-title">
                                 {{ menu.titre }}
                             </h5>
-                            <p class="card-text">
-                      {% if menu.description and menu.description|striptags|length > 120 %}
-    ...
-                      {% endif %}
-
-                       {% if menu.description and menu.description|striptags|length > 120 %}
-        ...
-                         {% endif %}
+                           <p class="card-text">
+                                 {{ menu.description|striptags|slice(0, 120) }}
+                                 {% if menu.description|striptags|length > 120 %}
+                                     ...
+                                 {% endif %}
                             </p>
                             <p class="mb-1">
                                 <strong>Thème :</strong>
