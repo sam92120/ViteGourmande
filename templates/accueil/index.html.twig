@@ -80,15 +80,13 @@
 
 <!-- Carrousel avis -->
 <div id="avisCarousel"
-     class="carousel slide col p-5"
+     class="carousel slide col p-5 "
      data-bs-ride="carousel">
 
-    <div class="carousel-inner">
-    
-
+    <div class="carousel-inner">    
         {% for chunk in avis|batch(2) %}
 
-            <div class="carousel-item {% if loop.first %}active{% endif %}">
+            <div class=" carousel-item {% if loop.first %}active{% endif %}">
 
                 <div class="row justify-content-center">
 
@@ -96,10 +94,10 @@
 
                         {% if unAvis %}
 
-                            <div class="col-md-5 mx-2 border border-white rounded p-4 text-white">
+                            <div class=" avis-card col-md-5 mx-4 border border-white rounded p-4 text-white border-10 ">  
 
                                 <p>{{ unAvis.commentaire }}</p>
-
+    
                                 <p>
                                     <strong>
                                         {% if unAvis.user %}
