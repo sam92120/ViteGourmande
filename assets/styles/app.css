@@ -123,3 +123,25 @@ body {
     font-size: 24px;
     margin: 10px 0;
 }
+
+.avis-slider {
+    display: flex;
+    flex-wrap: nowrap; /* IMPORTANT */
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px;
+    scroll-snap-type: x mandatory;
+    flex-wrap: nowrap;
+}
+
+.avis-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.avis-card {
+    flex: 0 0 48%; /* 2 cartes visibles */
+    scroll-snap-align: start;
+
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}

@@ -35,7 +35,7 @@ final class AccueilController extends AbstractController
                 $usersDejaAffiches[] = $userId;
             }
 
-            if (count($avisUniques) === 2) {
+            if (count($avisUniques) === 1000) {
                 break;
             }
         }
