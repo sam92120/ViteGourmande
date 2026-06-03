@@ -1,0 +1,151 @@
+body {
+    background-color: white;
+}
+
+.colfooter {
+    background-color: #0b3d2e;
+}
+
+.footer-separator {
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 767px) {
+    .footer-separator {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        padding-top: 1rem;
+    }
+}
+
+.hero-section {
+    background-image: url("/image/Anniversaire/herosection.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    height: 300px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    position: relative;
+    top: 0;
+}
+.hero-section1 {
+    background-color: #0b3d2e;
+}
+
+.btn-commande {
+    font-size: 16px;
+    border-radius: 20px;
+    width: 15%;
+    height: 20%;
+    color: white;
+    background-color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font:
+        bold 16px montserrat,
+        sans-serif;
+}
+
+.police {
+    font-family: "Inria Serif", sans-serif;
+    font-size: 14px;
+    color: white;
+    text-align: center;
+}
+
+.forme-image {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.tete {
+    background-color: #0b3d2e;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.btn-menu {
+    font-size: 16px;
+    border-radius: 20px;
+    width: 30%;
+    height: 20%;
+    color: white;
+    background-color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: black;
+        margin-top: 5px;
+    }
+    font:
+        bold 16px montserrat,
+        sans-serif;
+}
+
+.image-menu {
+    height: 250px;
+    object-fit: cover;
+}
+
+.btn-couleur {
+    background-color: #0b3d2e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font:
+        bold 16px montserrat,
+        sans-serif;
+}
+
+.stars {
+    color: gold;
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.avis-slider {
+    display: flex;
+    flex-wrap: nowrap; /* IMPORTANT */
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px;
+    scroll-snap-type: x mandatory;
+    flex-wrap: nowrap;
+}
+
+.avis-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.avis-card {
+    flex: 0 0 48%; /* 2 cartes visibles */
+    scroll-snap-align: start;
+
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.avis-card {
+    width: 100%;
+}
