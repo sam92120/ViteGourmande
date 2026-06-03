@@ -352,4 +352,33 @@ public function setIsActive(bool $isActive): static
 
     return $this;
 }
+
+ public function isAccountNonExpired(): bool
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked(): bool
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired(): bool
+    {
+        return true;
+    }
+
+    public function isEnabled(): bool
+    {
+        return $this->isActive;
+    }
+
+/**
+ * @see UserInterface
+ */
+public function eraseCredentials(): void
+{
+    // Si tu stockes des données sensibles temporaires, efface-les ici
+}
+
 }
