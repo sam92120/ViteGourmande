@@ -55,8 +55,8 @@ class DashboardController extends AbstractDashboardController
         'nbAvisEnAttente' => $this->avisRepository->count(['isApproved' => false]),
         'nbMenus' => $this->menuRepository->count([]),
         'nbPlats' => $this->platRepository->count([]),
-        //nombre de plat lies à chaque menu
         'nbUsers' => $this->userRepository->count([]),
+        ''
         
     ]);
     
