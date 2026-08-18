@@ -8,6 +8,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-intl": "*",
+        "daddyofsky/nova-debug": "^1.0",
         "doctrine/doctrine-bundle": "^3.2.2",
         "doctrine/doctrine-migrations-bundle": "^4.0",
         "doctrine/orm": "^3.6.4",
@@ -93,6 +94,8 @@
         "phpunit/phpunit": "^13.1.8",
         "symfony/browser-kit": "8.0.*",
         "symfony/css-selector": "8.0.*",
-        "symfony/maker-bundle": "^1.67"
+        "symfony/maker-bundle": "^1.67",
+        "symfony/stopwatch": "8.0.*",
+        "symfony/web-profiler-bundle": "8.0.*"
     }
 }
