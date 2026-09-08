@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\UserRepository;
@@ -60,15 +59,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'user', cascade: ['persist'])]
     private Collection $commandes;
 
-    /**
-     * @var Collection<int, Avis>
-     */
-    #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'user', cascade: ['persist'])]
-    private Collection $avis;
+   /**
+ * @var Collection<int, Avis>
+ */
+#[ORM\OneToMany(
+    targetEntity: Avis::class,
+    mappedBy: 'user',
+    cascade: ['persist', 'remove'],
+    orphanRemoval: true
+)]
+private Collection $avis;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nom = null;
 
+    //notification
     /**
      * @var Collection<int, Notification>
      */
@@ -92,9 +97,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getEmail(): ?string
     {
-        return $this->email;
+        return $this->email; // retourne l'email de l'utilisateur
     }
 
+
+    /**
+     * @param string $email
+     * @return static
+     */
     public function setEmail(string $email): static
     {
         $this->email = $email;
@@ -102,14 +112,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
+    /** 
+     * A visualiser pour identifier l'utilisateur.
      *
      * @see UserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->email; // retourne l'identifiant de l'utilisateur
     }
 
     /**
@@ -117,17 +127,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
+        // récupère les rôles de l'utilisateur
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-      
+        // garantie que chaque utilisateur a au moins le rôle ROLE_USER
+        $roles[] = 'ROLE_USER';    // ajoute le rôle ROLE_USER à l'utilisateur   
         
 
-        return array_unique($roles);
+        return array_unique($roles); // supprime les doublons
     }
 
     /**
-     * @param list<string> $roles
+     * @param list<string> $roles 
      */
     public function setRoles(array $roles): static
     {
@@ -141,12 +151,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getPassword(): ?string
     {
-        return $this->password;
+        return $this->password; // retourne le mot de passe de l'utilisateur
     }
 
     public function setPassword(string $password): static
     {
-        $this->password = $password;
+        $this->password = $password; // définit le mot de passe de l'utilisateur
 
         return $this;
     }
@@ -164,72 +174,72 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPrenom(): ?string
     {
-        return $this->prenom;
+        return $this->prenom; // retourne le prénom de l'utilisateur
     }
 
     public function setPrenom(?string $prenom): static
     {
-        $this->prenom = $prenom;
+        $this->prenom = $prenom; // définit le prénom de l'utilisateur
 
         return $this;
     }
 
     public function getPhone(): ?string
     {
-        return $this->phone;
+        return $this->phone; // retourne le numéro de téléphone de l'utilisateur
     }
 
     public function setPhone(?string $phone): static
     {
-        $this->phone = $phone;
+        $this->phone = $phone; // définit le numéro de téléphone de l'utilisateur
 
         return $this;
     }
 
     public function getVile(): ?string
     {
-        return $this->vile;
+        return $this->vile; // retourne la ville de l'utilisateur
     }
 
     public function setVile(?string $vile): static
     {
-        $this->vile = $vile;
+        $this->vile = $vile; // définit la ville de l'utilisateur
 
         return $this;
     }
 
     public function getPays(): ?string
     {
-        return $this->pays;
+        return $this->pays; // retourne le pays de l'utilisateur
     }
 
     public function setPays(?string $pays): static
     {
-        $this->pays = $pays;
+        $this->pays = $pays; // définit le pays de l'utilisateur
 
         return $this;
     }
 
     public function getAdresse(): ?string
     {
-        return $this->adresse;
+        return $this->adresse; // retourne l'adresse de l'utilisateur
     }
 
     public function setAdresse(?string $adresse): static
     {
-        $this->adresse = $adresse;
+        $this->adresse = $adresse; // définit l'adresse de l'utilisateur
 
         return $this;
     }
 
     public function isVerified(): bool
     {
-        return $this->isVerified;
+        return $this->isVerified; // retourne l'état de vérification de l'utilisateur
     }
 
     public function setIsVerified(bool $isVerified): static
     {
-        $this->isVerified = $isVerified;
+        $this->isVerified = $isVerified; // définit l'état de vérification de l'utilisateur
 
         return $this;
     }
@@ -246,7 +256,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->commandes->contains($commande)) {
             $this->commandes->add($commande);
-            $commande->setUser($this);
+            $commande->setUser($this); // définit l'utilisateur de la commande
         }
 
         return $this;
@@ -276,7 +286,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->avis->contains($avi)) {
             $this->avis->add($avi);
-            $avi->setUser($this);
+            $avi->setUser($this); // définit l'utilisateur de l'avis
         }
 
         return $this;
@@ -296,12 +306,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getNom(): ?string
     {
-        return $this->nom;
+        return $this->nom; // retourne le nom de l'utilisateur
     }
 
     public function setNom(?string $nom): static
     {
-        $this->nom = $nom;
+        $this->nom = $nom; // définit le nom de l'utilisateur
 
         return $this;
     }
@@ -323,7 +333,7 @@ public function addNotification(Notification $notification): static
 {
     if (!$this->notifications->contains($notification)) {
         $this->notifications->add($notification);
-        $notification->setUser($this);
+        $notification->setUser($this); // définit l'utilisateur de la notification
     }
 
     return $this;
@@ -334,7 +344,7 @@ public function removeNotification(Notification $notification): static
     if ($this->notifications->removeElement($notification)) {
         // set the owning side to null (unless already changed)
         if ($notification->getUser() === $this) {
-            $notification->setUser(null);
+            $notification->setUser(null); // supprime l'utilisateur de la notification
         }
     }
 
@@ -348,7 +358,7 @@ public function isActive(): ?bool
 
 public function setIsActive(bool $isActive): static
 {
-    $this->isActive = $isActive;
+    $this->isActive = $isActive; // définit l'état actif de l'utilisateur
 
     return $this;
 }

@@ -23,7 +23,7 @@
             {# ERREUR LOGIN #}
             {% if error %}
                 <div class="alert alert-danger">
-                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                  identifiant ou mot de passe incorrect
                 </div>
             {% endif %}
 
@@ -132,6 +132,7 @@
     </div>
     
 </div>
+
 
 {# SCRIPT PASSWORD #}
 <script>
