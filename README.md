@@ -29,16 +29,33 @@ l’objectif du projet  est de moderniser la visibilité de l'entreprise, et  re
 - Gestion des avis
 - tableaun de bord adminitrateur via EasyAdmin
 
-# 🛠️ Technologies utilisées
+### 🧩 Technologies et versions utilisées
 
-- PHP 8
-- Symfony
-- Doctrine ORM
-- MySQL
-- Twig
-- Bootstrap
-- EasyAdmin
-- Git/GitHub
+* **Symfony 8.0.10**
+* **PHP 8.5.10**
+* **MongoDB Server 8.3.11**
+* **Extension PHP MongoDB 2.5.3**
+* **Doctrine MongoDB ODM Bundle**
+* **MongoDB Compass**
+* **MySQL**
+* **EasyAdmin**
+* **Chart.js**
+
+### 🔐 Principe de séparation des données
+
+Le projet applique une séparation entre les deux bases :
+
+| MySQL        | MongoDB               |
+| ------------ | --------------------- |
+| Utilisateurs | Activités             |
+| Menus        | Consultations         |
+| Plats        | Statistiques          |
+| Commandes    | Dates de consultation |
+| Avis         | Métadonnées           |
+| Thèmes       | Types d'activité      |
+
+Cette architecture permet de conserver **MySQL comme source de vérité pour les données métier** tout en utilisant **MongoDB pour le suivi d'activité et les statistiques**, sans dupliquer les données relationnelles.
+
 
 ## 📦 Installation
 
