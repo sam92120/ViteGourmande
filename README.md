@@ -1,4 +1,4 @@
-# Restaurant Vite&Gourmande#
+#Restaurant Vite&Gourmande#
 
 # 🍽️ Restaurant Management System
 
