@@ -30,3 +30,4 @@ vitegourmande.sql
 .env.local
 .env.dev
 .codacy/
+.env.test.env.test
