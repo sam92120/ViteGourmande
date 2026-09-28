@@ -4,7 +4,7 @@ namespace App\EventListener;
 
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 
-final class ExceptionListener
+final class CommandeListener 
 {
     #[AsEventListener(event: 'Commande')]
     public function onCommande($event): void

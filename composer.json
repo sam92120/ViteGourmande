@@ -11,6 +11,7 @@
         "daddyofsky/nova-debug": "^1.0",
         "doctrine/doctrine-bundle": "^3.2.2",
         "doctrine/doctrine-migrations-bundle": "^4.0",
+        "doctrine/mongodb-odm-bundle": "^5.6",
         "doctrine/orm": "^3.6.4",
         "easycorp/easyadmin-bundle": "^5.0",
         "symfony/all-my-sms-notifier": "8.0.*",

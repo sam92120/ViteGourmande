@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Menu;
+use App\Service\RestaurantActivityService;
 use App\Form\MenuType;
 use App\Repository\MenuRepository;
 use App\Repository\ThemeRepository;
@@ -65,15 +66,26 @@ final class MenuController extends AbstractController
             'form' => $form,
         ]);
     }
+#[Route('/{id}', name: 'app_menu_show', methods: ['GET'])]
+public function show(
+    Menu $menu,
+    RestaurantActivityService $activityService
+): Response {
+    $userId = $this->getUser()?->getId();
 
-    #[Route('/{id}', name: 'app_menu_show', methods: ['GET'])]
-    public function show(Menu $menu): Response
-    {
-        return $this->render('menu/show.html.twig', [
-            'menu' => $menu,
-        ]);
-    }
+    $activityService->menuViewed(
+        menuId: $menu->getId(),
+        userId: $userId,
+        metadata: [
+            'source' => 'website',
+            'page' => 'menu_show',
+        ]
+    );
 
+    return $this->render('menu/show.html.twig', [
+        'menu' => $menu,
+    ]);
+}
     #[Route('/{id}/edit', name: 'app_menu_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     #[IsGranted('ROLE_EMPLOYEE')]

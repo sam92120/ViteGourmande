@@ -12,7 +12,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'app:send-emails',
-    description: 'Add a short description for your command',
+    description: 'ajout d\'une description pour votre commande',
 )]
 class SendEmailsCommand extends Command
 {
@@ -35,14 +35,14 @@ class SendEmailsCommand extends Command
         $arg1 = $input->getArgument('arg1');
 
         if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
+            $io->note(sprintf('tu as passé un argument : %s', $arg1));
         }
 
         if ($input->getOption('option1')) {
             // ...
         }
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $io->success('tu as exécuté la commande avec succès.');
 
         return Command::SUCCESS;
     }

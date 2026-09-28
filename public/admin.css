@@ -57,3 +57,213 @@
 body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+
+.title {
+    color: #0B3D2E;
+    font-weight: 700;
+}
+
+.dashboard-stat-card {
+    border: none;
+    border-radius: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10) !important;
+}
+
+.dashboard-stat-card .card-body {
+    padding: 22px;
+}
+
+.stat-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    background-color: #e8f1ed;
+    color: #0B3D2E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.stat-label {
+    color: #6c757d;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.stat-number {
+    color: #0B3D2E;
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 3px;
+}
+
+.mongo-stat-card {
+    border: none;
+    border-radius: 14px;
+    background-color: #ffffff;
+}
+
+.mongo-stat-card .card-body {
+    padding: 22px;
+}
+
+.mongo-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    background-color: #e8f1ed;
+    color: #0B3D2E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.mongo-title {
+    color: #343a40;
+    font-weight: 600;
+}
+
+.mongo-number {
+    color: #0B3D2E;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.mongo-description {
+    color: #6c757d;
+    font-size: 13px;
+}
+
+.dashboard-card {
+    border: none;
+    border-radius: 14px;
+}
+
+.dashboard-card-title {
+    color: #0B3D2E;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.dashboard-badge {
+    background-color: #e8f1ed;
+    color: #0B3D2E;
+    font-weight: 600;
+}
+
+.top-menu {
+    padding: 13px 0;
+    border-bottom: 1px solid #edf0ee;
+}
+
+.top-menu:last-child {
+    border-bottom: none;
+}
+
+.top-menu-rank {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: #0B3D2E;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin-right: 12px;
+}
+
+.top-menu-name {
+    font-weight: 600;
+    color: #212529;
+}
+
+.top-menu-count {
+    color: #6c757d;
+    font-size: 13px;
+}
+
+.top-menu .progress {
+    height: 7px;
+    background-color: #edf0ee;
+}
+
+.top-menu .progress-bar {
+    background-color: #0B3D2E;
+}
+
+
+/* =========================
+DASHBOARD ADMIN
+========================= */
+
+.dashboard-card {
+border: none;
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+}
+
+.dashboard-icon {
+font-size: 28px;
+margin-bottom: 10px;
+}
+
+.dashboard-card h2 {
+font-size: 32px;
+font-weight: 700;
+margin-bottom: 0;
+}
+
+/* =========================
+STATISTIQUES MONGODB
+========================= */
+
+.mongo-card {
+border: none;
+min-height: 160px;
+}
+
+.mongo-card h5 {
+margin-bottom: 15px;
+}
+
+.mongo-number {
+font-size: 38px;
+font-weight: 700;
+margin-bottom: 5px;
+}
+
+/* =========================
+TOP MENUS
+========================= */
+
+.top-menu-item {
+padding-bottom: 5px;
+}
+
+.top-menu-item strong {
+font-size: 16px;
+}
+
+.top-menu-item .progress {
+background-color: #eeeeee;
+border-radius: 10px;
+}
+
+.top-menu-item .progress-bar {
+border-radius: 10px;
+}

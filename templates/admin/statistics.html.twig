@@ -1,0 +1,356 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statistiques - Vite&Gourmande{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .statistics-page {
+            background: #f6f8f7;
+            min-height: 100vh;
+            padding: 40px 0 60px;
+        }
+
+        .statistics-header {
+            margin-bottom: 35px;
+        }
+
+        .statistics-header h1 {
+            color: #0B3D2E;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .statistics-header p {
+            color: #6c757d;
+            margin: 0;
+        }
+
+        .stat-card {
+            background: white;
+            border: none;
+            border-radius: 16px;
+            padding: 25px;
+            height: 100%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .stat-card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: #e8f1ed;
+            color: #0B3D2E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+            margin-bottom: 18px;
+        }
+
+        .stat-card h2 {
+            color: #0B3D2E;
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: #6c757d;
+            margin: 0;
+        }
+
+        .dashboard-card {
+            background: white;
+            border: none;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            height: 100%;
+        }
+
+        .dashboard-card h3 {
+            color: #0B3D2E;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .menu-row {
+            padding: 15px 0;
+            border-bottom: 1px solid #edf0ee;
+        }
+
+        .menu-row:last-child {
+            border-bottom: none;
+        }
+
+        .menu-rank {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #0B3D2E;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 15px;
+        }
+
+        .menu-name {
+            color: #212529;
+            font-weight: 600;
+        }
+
+        .menu-views {
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .progress {
+            height: 8px;
+            border-radius: 10px;
+            background-color: #edf0ee;
+        }
+
+        .progress-bar {
+            background-color: #0B3D2E;
+            border-radius: 10px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #edf0ee;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #e8f1ed;
+            color: #0B3D2E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px;
+        }
+
+        .activity-name {
+            font-weight: 600;
+            color: #212529;
+        }
+
+        .activity-count {
+            font-weight: 700;
+            color: #0B3D2E;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 10px;
+            color: #6c757d;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+<div class="statistics-page">
+
+    <div class="container">
+
+        {# En-tête #}
+        <div class="statistics-header">
+            <h1>
+                <i class="bi bi-bar-chart-line me-2"></i>
+                Statistiques
+            </h1>
+
+            <p>
+                Consultez l'activité et les menus les plus consultés sur Vite&Gourmande.
+            </p>
+        </div>
+
+        {# KPI #}
+        <div class="row g-4 mb-4">
+
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-card-icon">
+                        <i class="bi bi-eye"></i>
+                    </div>
+
+                    <h2>{{ totalViews }}</h2>
+                    <p>Consultations de menus</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-card-icon">
+                        <i class="bi bi-journal-text"></i>
+                    </div>
+
+                    <h2>{{ uniqueMenus }}</h2>
+                    <p>Menus consultés</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-card-icon">
+                        <i class="bi bi-activity"></i>
+                    </div>
+
+                    <h2>{{ totalActivities }}</h2>
+                    <p>Activités enregistrées</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row g-4">
+
+            {# Menus les plus consultés #}
+            <div class="col-lg-7">
+
+                <div class="dashboard-card">
+
+                    <h3>
+                        <i class="bi bi-trophy me-2"></i>
+                        Menus les plus consultés
+                    </h3>
+
+                    {% if topMenus is not empty %}
+
+                        {% for statistic in topMenus %}
+
+                            <div class="menu-row">
+
+                                <div class="d-flex align-items-center mb-2">
+
+                                    <div class="menu-rank">
+                                        {{ loop.index }}
+                                    </div>
+
+                                    <div class="flex-grow-1">
+                                        <div class="menu-name">
+                                            {{ statistic.menuTitle }}
+                                        </div>
+
+                                        <div class="menu-views">
+                                            {{ statistic.count }}
+                                            consultation{% if statistic.count > 1 %}s{% endif %}
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="progress">
+                                    <div
+                                        class="progress-bar"
+                                        role="progressbar"
+                                        style="width: {{ statistic.percentage }}%;"
+                                    ></div>
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="empty-state">
+                            <i class="bi bi-bar-chart fs-1 d-block mb-3"></i>
+                            Aucune consultation de menu enregistrée.
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {# Activités #}
+            <div class="col-lg-5">
+
+                <div class="dashboard-card">
+
+                    <h3>
+                        <i class="bi bi-pie-chart me-2"></i>
+                        Activité du site
+                    </h3>
+
+                    {% if byType is not empty %}
+
+                        {% for statistic in byType %}
+
+                            <div class="activity-item">
+
+                                <div class="d-flex align-items-center">
+
+                                    <div class="activity-icon">
+
+                                        {% if statistic._id == 'menu_view' %}
+                                            <i class="bi bi-eye"></i>
+                                        {% elseif statistic._id == 'plat_view' %}
+                                            <i class="bi bi-egg-fried"></i>
+                                        {% else %}
+                                            <i class="bi bi-activity"></i>
+                                        {% endif %}
+
+                                    </div>
+
+                                    <div>
+                                        {% if statistic._id == 'menu_view' %}
+                                            <div class="activity-name">
+                                                Consultation de menus
+                                            </div>
+                                        {% elseif statistic._id == 'plat_view' %}
+                                            <div class="activity-name">
+                                                Consultation de plats
+                                            </div>
+                                        {% else %}
+                                            <div class="activity-name">
+                                                {{ statistic._id }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+
+                                <div class="activity-count">
+                                    {{ statistic.count }}
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="empty-state">
+                            <i class="bi bi-activity fs-1 d-block mb-3"></i>
+                            Aucune activité enregistrée.
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -23,3 +23,9 @@
 #Ignore vscode AI rules
 .github\instructions\codacy.instructions.md
 backup.sql
+vitegourmande.sql
+.env
+.env
+.env.local
+.env.local
+.env.dev
