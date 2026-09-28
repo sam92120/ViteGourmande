@@ -1,142 +1,148 @@
-#Restaurant Vite&Gourmande#
+# 🍽️ Vite&Gourmande
 
-# 🍽️ Restaurant Management System
+## 📖 Présentation
 
-Application web développée avec SYMFONY permettant de gérer un restaurant : menu, plat, horaire, notification, commandes, réservations et utilisateurs.
-l’objectif du projet  est de moderniser la visibilité de l'entreprise, et  rend les échanges plus faciles avec les clients
+**Vite&Gourmande** est une application web de gestion de restaurant développée avec **Symfony**.
+
+L'application permet de gérer l'activité d'un restaurant : menus, plats, horaires, commandes, réservations, avis, utilisateurs, notifications et statistiques.
+
+L'objectif du projet est de **moderniser la visibilité du restaurant** et de faciliter les échanges entre l'entreprise et ses clients.
+
+---
 
 # 🚀 Fonctionnalités
 
-## visiteurs
-- consultations de page d'accueil
-- consultations de Menus
-- galerie photos
-- creation de compte
-- connexion/deconnexion
-- depots d'avis
-- reserver un menu
-  
-## utilisateurs connnectés
-- gerer son compte
-- passer  des commandes
-- Tableau de bord de gestion
-- consulter les menus ou les commandes
+## 👥 Visiteurs
 
-## adminitrateurs
+Les visiteurs peuvent :
 
-- Gestion des utilisateurs
-- Gestion des commandes 
-- Gestion des avis
-- tableaun de bord adminitrateur via EasyAdmin
+* Consulter la page d'accueil
+* Consulter les menus
+* Consulter les plats
+* Consulter la galerie photos
+* Créer un compte
+* Filtrer les menus
+* Filtrer les plats
+* Consulter les derniers avis
 
-### 🧩 Technologies et versions utilisées
+## 👤 Utilisateurs connectés
+
+Les utilisateurs peuvent :
+
+* Gérer leur compte
+* Passer des commandes
+* Consulter les menus
+* Consulter leurs commandes
+* Modifier une commande
+* Annuler une commande
+
+## 👨‍💼 Administrateurs
+
+Les administrateurs peuvent :
+
+* Gérer les utilisateurs
+* Gérer les commandes
+* Gérer et modifier les plats
+* Gérer les menus
+* Gérer les avis
+* Gérer les employés
+* Gérer les images
+* Consulter les menus
+* Consulter les statistiques
+* Accéder au tableau de bord d'administration avec **EasyAdmin**
+
+## 👷 Employés
+
+Les employés peuvent :
+
+* Gérer les commandes
+* Gérer les menus
+* Modifier ou annuler une commande à la demande du client
+
+---
+
+# 🧩 Technologies utilisées
 
 * **Symfony 8.0.10**
 * **PHP 8.5.10**
+* **MySQL**
+* **Doctrine ORM**
 * **MongoDB Server 8.3.11**
 * **Extension PHP MongoDB 2.5.3**
-* **Doctrine MongoDB ODM Bundle**
+* **Doctrine MongoDB ODM**
 * **MongoDB Compass**
-* **MySQL**
 * **EasyAdmin**
 * **Chart.js**
+* **Apache**
+* **Heroku**
+* **JawsDB**
+* **MongoDB Atlas**
+* **Git / GitHub**
 
-### 🔐 Principe de séparation des données
+---
 
-Le projet applique une séparation entre les deux bases :
+# 🗄️ Architecture des bases de données
 
-| MySQL        | MongoDB               |
-| ------------ | --------------------- |
-| Utilisateurs | Activités             |
-| Menus        | Consultations         |
-| Plats        | Statistiques          |
-| Commandes    | Dates de consultation |
-| Avis         | Métadonnées           |
-| Thèmes       | Types d'activité      |
+Le projet utilise une architecture hybride avec **MySQL** et **MongoDB**.
 
-Cette architecture permet de conserver **MySQL comme source de vérité pour les données métier** tout en utilisant **MongoDB pour le suivi d'activité et les statistiques**, sans dupliquer les données relationnelles.
-
-
-## 📦 Installation
-
-### 1. Cloner le projet
-
-```bash
-git clone https://github.com/ton-compte/restaurant-project.git
+```text
+                         Vite&Gourmande
+                               │
+                ┌──────────────┴──────────────┐
+                │                             │
+              MySQL                       MongoDB
+                │                             │
+        Données métier                Données d'activité
+                │                             │
+      ┌─────────┼─────────┐           restaurant_activity
+      │         │         │                    │
+   Utilisateurs Menus  Commandes       menu_view / plat_view
+      │         │         │                    │
+    Plats      Avis    Horaires           Statistiques
 ```
 
-### 2. Accéder au dossier
+## 🗃️ MySQL — données métier
 
-```bash
-cd restaurant-project
-```
+MySQL constitue la **source principale des données métier**.
 
-### 3. Installer les dépendances
-
-```bash
-composer install
-```
-
-### 4. Configurer l’environnement
-
-
-Créer un fichier `.env.local` :
-
-```env
-DATABASE_URL="mysql://root:password@127.0.0.1:3306/restaurant_db"
-```
-
-### 5. Créer la base de données
-
-
-##  Base de donnée Nosql
-## 🍃 MongoDB — Statistiques et suivi d'activité
-
-Le projet **Vite&Gourmande** utilise une architecture hybride avec **MySQL** et **MongoDB**.
-
-### 🎯 Rôle de MongoDB
-
-MongoDB est utilisé uniquement pour stocker les **données d'activité et de fréquentation** du site.
-
-Les données métier principales restent stockées dans MySQL :
+Les principales données sont :
 
 * Utilisateurs
+* Rôles
 * Menus
 * Plats
 * Commandes
 * Avis
+* Allergènes
+* Régimes
 * Thèmes
-* etc.
+* Horaires
+* Notifications
+* Contacts
 
-MongoDB ne contient donc pas de copie des menus ou des plats.
+## 🍃 MongoDB — activité et statistiques
 
-### 🏗️ Architecture
+MongoDB est utilisé pour enregistrer les **données d'activité et de fréquentation** du site.
+
+MongoDB ne contient pas de copie des menus ou des plats.
+
+La collection principale est :
 
 ```text
-                    Vite&Gourmande
-                          │
-                ┌─────────┴─────────┐
-                │                   │
-             MySQL              MongoDB
-                │                   │
-        Données métier       Données d'activité
-                │                   │
-        ┌───────┼───────┐           │
-        │       │       │           │
-      Menus   Plats  Commandes      │
-                                    │
-                            restaurant_activity
-                                    │
-                         ┌──────────┴──────────┐
-                         │                     │
-                     menu_view             statistiques
+restaurant_activity
 ```
 
-### 📊 Données enregistrées
+Elle enregistre notamment :
 
-La collection MongoDB `restaurant_activity` enregistre notamment les consultations de menus.
+* Les consultations de menus
+* Les consultations de plats
+* La date de consultation
+* L'identifiant du menu
+* L'identifiant du plat
+* L'utilisateur éventuel
+* Les métadonnées de navigation
 
-Exemple de document :
+Exemple :
 
 ```json
 {
@@ -156,35 +162,160 @@ Exemple de document :
 
 Lorsqu'un utilisateur consulte un menu :
 
-1. Symfony récupère le menu depuis **MySQL**.
-2. `RestaurantActivityService` enregistre une activité dans **MongoDB**.
-3. MongoDB conserve la date, le type d'activité, l'identifiant du menu et éventuellement l'utilisateur.
-4. Le dashboard EasyAdmin utilise les données MongoDB pour calculer les statistiques.
+1. Symfony récupère le menu depuis MySQL.
+2. `RestaurantActivityService` enregistre l'activité dans MongoDB.
+3. MongoDB conserve les informations de consultation.
+4. Le dashboard EasyAdmin utilise MongoDB pour calculer les statistiques.
+5. Les informations du menu sont récupérées depuis MySQL grâce à son identifiant.
 
-Le nom du menu est ensuite récupéré depuis **MySQL** grâce à son identifiant.
+### 📊 Statistiques
 
-### 📈 Statistiques disponibles
+Le tableau de bord permet notamment d'afficher :
 
-Le dashboard administrateur affiche notamment :
+* Le nombre total de consultations de menus
+* Le nombre total d'activités
+* Les menus les plus consultés
+* L'évolution des consultations sur les 7 derniers jours
+* Le classement des menus les plus consultés
 
-* Nombre total de consultations de menus
-* Nombre total d'activités enregistrées
-* Menus les plus consultés
-* Évolution des consultations sur les 7 derniers jours
-* Classement des menus les plus consultés
+Les statistiques sont calculées à l'aide d'**agrégations MongoDB**.
 
-Les statistiques sont calculées avec des **agrégations MongoDB** afin de regrouper et compter les activités.
+---
 
-### ⚙️ Configuration
+# 🔐 Séparation des données
 
-La connexion MongoDB est configurée dans `.env` :
+| MySQL         | MongoDB               |
+| ------------- | --------------------- |
+| Utilisateurs  | Activités             |
+| Menus         | Consultations         |
+| Plats         | Statistiques          |
+| Commandes     | Dates de consultation |
+| Avis          | Métadonnées           |
+| Thèmes        | Types d'activité      |
+| Horaires      | —                     |
+| Notifications | —                     |
 
-```dotenv
-MONGODB_URI=mongodb://localhost:27017
-MONGODB_DB=ViteGourmande
+Cette séparation permet de conserver **MySQL comme source de vérité pour les données métier**, tout en utilisant MongoDB pour le suivi d'activité et les statistiques.
+
+---
+
+# 📦 Installation
+
+## 1. Cloner le projet
+
+```bash
+git clone https://github.com/sam92120/ViteGourmande.git
+cd ViteGourmande
 ```
 
-Doctrine MongoDB ODM est utilisé pour connecter Symfony à MongoDB.
+## 2. Installer les dépendances
+
+```bash
+composer install
+```
+
+## 3. Configurer l'environnement
+
+Créer un fichier `.env.local` à la racine du projet.
+
+Exemple :
+
+```dotenv
+APP_ENV=dev
+APP_DEBUG=1
+
+DATABASE_URL="mysql://root:password@127.0.0.1:3306/vitegourmande"
+
+MONGODB_URI="mongodb://localhost:27017"
+MONGODB_DB="vitegourmande"
+```
+
+> ⚠️ Les valeurs de connexion doivent être adaptées à votre environnement local.
+>
+> Ne jamais publier de mot de passe, clé API ou autre secret dans Git.
+
+## 4. Créer la base de données MySQL
+
+```bash
+php bin/console doctrine:database:create
+```
+
+## 5. Exécuter les migrations
+
+```bash
+php bin/console doctrine:migrations:migrate
+```
+
+## 6. Configurer MongoDB
+
+MongoDB doit être installé et démarré localement.
+
+La connexion locale utilise :
+
+```text
+mongodb://localhost:27017
+```
+
+La base utilisée par l'application est :
+
+```text
+vitegourmande
+```
+
+Pour mettre à jour les index et la configuration du document MongoDB :
+
+```bash
+php bin/console doctrine:mongodb:schema:update --class="App\Document\RestaurantActivity"
+```
+
+## 7. Lancer le serveur Symfony
+
+```bash
+symfony server:start
+```
+
+L'application est alors accessible à :
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+# 🗄️ Structure SQL
+
+La base de données relationnelle utilise **MySQL** avec **Doctrine ORM**.
+
+Les principales entités sont :
+
+```text
+Utilisateur
+Rôle
+Menu
+Plat
+Commande
+Avis
+Allergène
+Régime
+Thème
+```
+
+### Relations principales
+
+* Un utilisateur peut passer plusieurs commandes.
+* Un utilisateur peut publier plusieurs avis.
+* Un menu peut contenir plusieurs plats.
+* Un plat peut être associé à plusieurs allergènes.
+
+Les migrations Doctrine sont stockées dans :
+
+```text
+migrations/
+```
+
+---
+
+# 🍃 Configuration MongoDB
 
 Le document principal est :
 
@@ -198,123 +329,89 @@ Le service chargé d'enregistrer et d'analyser les activités est :
 src/Service/RestaurantActivityService.php
 ```
 
-### 🧩 Technologies utilisées
-
-* **Symfony 8**
-* **Doctrine MongoDB ODM**
-* **MongoDB 8**
-* **MongoDB Compass**
-* **MySQL**
-* **EasyAdmin**
-* **Chart.js**
-
-### 🔐 Principe de séparation des données
-
-Le projet applique une séparation entre les deux bases :
-
-| MySQL        | MongoDB               |
-| ------------ | --------------------- |
-| Utilisateurs | Activités             |
-| Menus        | Consultations         |
-| Plats        | Statistiques          |
-| Commandes    | Dates de consultation |
-| Avis         | Métadonnées           |
-| Thèmes       | Types d'activité      |
-
-Cette architecture permet de conserver **MySQL comme source de vérité pour les données métier** tout en utilisant **MongoDB pour le suivi d'activité et les statistiques**, sans dupliquer les données relationnelles.
-
-## 🗄️ Base de données sql
-
-La base de données est développée avec MySQL et Doctrine ORM.
-
-Elle contient plusieurs entités principales :
-
-- Utilisateur
-- Rôle
-- Menu
-- Plat
-- Commande
-- Avis
-- Allergène
-- Régime
-- Thème
-
-### Relations principales
-
-- Un utilisateur peut passer plusieurs commandes.
-- Un utilisateur peut publier plusieurs avis.
-- Un menu contient plusieurs plats.
-- Un plat peut contenir plusieurs allergènes.
-
-```bash
-php bin/console doctrine:database:create
-```
-
-### 6. Exécuter les migrations
-
-```bash
-php bin/console doctrine:migrations:migrate
-
-
-```
-
-### 7. Lancer le serveur Symfony
-
-```bash
-symfony server:start
-```
-
-## ▶️ Accès à l’application
-
-Ouvrir dans le navigateur :
-``text
-http://127.0.0.1:8000
-
-##  8 Sécurité
-
-l'application utilise le composant security de symfony 
-
-. Authentification sécuritée
-. Hashage des mots de passe
-. Gestion des roles utilisateurs
-. Protection CSRF
-. Validation  de Formulaire
-
-
-## 9 Gestion de projet
-
-le suivi du projet été realis& avec trelo afin d'organiser les taches et suivre l'avancement du developpement 
-
-
-## 10 Stucture de Git
-
-Le projet suit organisation Git basé sur plusieurs branches
-. main
-.develop
-. Feature/*
-
-
-## Compte Test
-
-# Administrateur
-```
-Email: vitegourmandadmin.com
-mdp:Sam@92120
-## 📁 Structure du projet
+La configuration Doctrine MongoDB se trouve dans :
 
 ```text
-src/
-templates/
-public/
-config/
-migrations/
+config/packages/doctrine_mongodb.yaml
 ```
 
-## 🚀 Déploiement en production
+---
 
-L'application **Vite&Gourmande** est déployée sur **Heroku** avec une architecture hybride utilisant **MySQL** pour les données métier et **MongoDB Atlas** pour les statistiques et le suivi d'activité.
+# 🔐 Sécurité
 
-### 🏗️ Architecture
+L'application utilise le composant **Security de Symfony**.
+
+Les principales mesures de sécurité sont :
+
+* Authentification des utilisateurs
+* Hashage sécurisé des mots de passe
+* Gestion des rôles et des permissions
+* Protection CSRF
+* Validation des formulaires
+* Séparation des variables sensibles de la configuration du code
+
+Les secrets de production ne sont pas stockés dans Git.
+
+---
+
+# 📁 Structure du projet
+
+```text
+ViteGourmande/
+│
+├── config/
+├── migrations/
+├── public/
+├── src/
+│   ├── Controller/
+│   ├── Document/
+│   ├── Entity/
+│   ├── Repository/
+│   └── Service/
+│
+├── templates/
+├── .env
+├── composer.json
+├── Procfile
+└── README.md
+```
+
+---
+
+# 🌿 Gestion Git
+
+Le projet utilise une organisation Git basée sur plusieurs branches :
+
+```text
+main
+develop
+feature/*
+```
+
+Le développement est effectué principalement sur `develop`.
+
+Les fonctionnalités spécifiques peuvent être développées dans des branches :
+
+```text
+feature/nom-de-la-fonctionnalite
+```
+
+---
+
+# 📋 Gestion de projet
+
+Le suivi du projet a été réalisé avec **Trello** afin de :
+
+* Organiser les tâches
+* Suivre leur avancement
+* Prioriser les fonctionnalités
+* Organiser les différentes étapes du développement
+
+---
+
+# 🚀 Déploiement en production
+
+L'application est déployée sur **Heroku** avec une architecture hybride.
 
 ```text
                          Heroku
@@ -323,21 +420,14 @@ L'application **Vite&Gourmande** est déployée sur **Heroku** avec une architec
                            │
               ┌────────────┴────────────┐
               │                         │
-           MySQL                    MongoDB Atlas
-        (JawsDB)                 (statistiques)
+           JawsDB                  MongoDB Atlas
               │                         │
-       Données métier            restaurant_activity
+           MySQL                   MongoDB
               │                         │
-    ┌─────────┼─────────┐       ┌───────┴────────┐
-    │         │         │       │                │
- Utilisateurs Menus  Commandes  menu_view     plat_view
-    │         │         │
-   Plats     Avis    Notifications
+       Données métier          restaurant_activity
 ```
 
-### ☁️ Hébergement
-
-L'application est hébergée sur **Heroku**.
+## ☁️ Hébergement
 
 ```text
 Application : stark-coast-11185
@@ -346,74 +436,42 @@ PHP         : 8.5
 Symfony     : 8.0
 ```
 
-Le serveur web utilise Apache avec le `Procfile` suivant :
+Le serveur web utilise Apache avec :
 
 ```text
 web: heroku-php-apache2 public/
 ```
 
-L'application est accessible à l'adresse :
+## 🗄️ MySQL en production
 
-```text
-https://stark-coast-11185-4b9309b3ce2c.herokuapp.com/
-```
+Les données métier sont stockées dans **MySQL via JawsDB**.
 
-### 🗄️ Base de données MySQL
-
-Les données métier sont stockées dans **MySQL** via **JawsDB**.
-
-Les principales données conservées dans MySQL sont :
-
-* Utilisateurs
-* Menus
-* Plats
-* Commandes
-* Avis
-* Notifications
-* Horaires
-* Contacts
-* Thèmes
-
-La variable d'environnement utilisée par Symfony est :
+Symfony utilise la variable :
 
 ```text
 DATABASE_URL
 ```
 
-La valeur de connexion n'est pas stockée dans le dépôt Git. Elle est configurée directement dans les variables d'environnement Heroku.
+La valeur réelle de cette variable n'est pas stockée dans Git.
 
-### 📊 MongoDB Atlas
+## 🍃 MongoDB en production
 
-MongoDB Atlas est utilisé pour les données d'activité et les statistiques.
+Les données d'activité sont stockées dans **MongoDB Atlas**.
 
-La collection principale est :
-
-```text
-restaurant_activity
-```
-
-Elle contient notamment :
-
-* consultations de menus ;
-* consultations de plats ;
-* date de consultation ;
-* identifiant du menu ;
-* identifiant du plat ;
-* utilisateur éventuel ;
-* métadonnées de navigation.
-
-Les variables utilisées en production sont :
+Les variables utilisées sont :
 
 ```text
 MONGODB_URI
 MONGODB_DB
 ```
 
-Les identifiants MongoDB ne sont jamais stockés dans Git.
+Les identifiants MongoDB ne sont jamais stockés dans le dépôt.
 
-### 🔐 Variables d'environnement
+## 🔑 Variables d'environnement
 
-Les paramètres sensibles sont configurés dans Heroku avec :
+Les variables de production sont configurées directement dans les **Config Vars Heroku**.
+
+Par exemple :
 
 ```text
 APP_ENV
@@ -427,153 +485,157 @@ MONGODB_URI
 MONGODB_DB
 ```
 
-Les valeurs contenant des mots de passe, clés ou identifiants ne doivent **jamais être ajoutées au dépôt Git**.
+Les valeurs sensibles ne doivent jamais être publiées dans le dépôt Git.
 
-### 📦 Déploiement
+---
 
-Le projet utilise Git pour envoyer le code vers Heroku.
+# 📦 Déploiement
 
-Le dépôt contient notamment :
-
-```text
-Procfile
-composer.json
-.env
-src/
-config/
-public/
-templates/
-```
-
-Le déploiement est effectué avec :
+Pour envoyer la branche `develop` vers l'application Heroku :
 
 ```powershell
 git push heroku develop:main
 ```
 
-Heroku installe automatiquement les dépendances PHP avec Composer et construit l'application.
+Heroku installe automatiquement les dépendances avec Composer et déploie l'application.
 
-### 🛠️ Configuration de Symfony
-
-Le fichier `.env` versionné contient uniquement les paramètres non sensibles nécessaires au démarrage :
-
-```dotenv
-APP_ENV=prod
-APP_DEBUG=0
-```
-
-Les paramètres spécifiques à la production sont fournis par les **Config Vars Heroku**.
-
-La configuration MongoDB utilise Doctrine MongoDB ODM :
+Après chaque modification :
 
 ```text
-config/packages/doctrine_mongodb.yaml
+Modification du code
+        ↓
+Test en local
+        ↓
+git add
+        ↓
+git commit
+        ↓
+git push heroku develop:main
+        ↓
+Vérification en production
 ```
 
-Le document MongoDB principal est :
+---
 
-```text
-src/Document/RestaurantActivity.php
-```
+# 🗃️ Import de la base MySQL
 
-Le service chargé du suivi des activités est :
+La base MySQL locale peut être exportée avec `mysqldump`.
 
-```text
-src/Service/RestaurantActivityService.php
-```
-
-### 🗃️ Import de la base MySQL
-
-La base locale a été exportée avec `mysqldump` puis importée dans JawsDB.
-
-Le fichier SQL local :
+Le fichier :
 
 ```text
 vitegourmande.sql
 ```
 
-est ignoré par Git afin de ne pas publier les données de la base.
+contient les données de la base locale et doit rester ignoré par Git.
 
-L'import est effectué directement vers la base MySQL de production.
+Il ne doit pas être publié lorsqu'il contient des données réelles ou sensibles.
 
-### 🧪 Vérification du déploiement
+La base peut ensuite être importée dans la base MySQL de production.
 
-Après le déploiement, plusieurs éléments sont vérifiés :
+---
+
+# 🧪 Vérification après déploiement
+
+Après chaque déploiement, vérifier :
 
 ```text
-✓ Application Symfony accessible
+✓ Application accessible
 ✓ Connexion MySQL fonctionnelle
 ✓ Données métier disponibles
-✓ Connexion MongoDB configurée
+✓ Connexion MongoDB fonctionnelle
 ✓ Dashboard EasyAdmin accessible
-✓ Statistiques MongoDB intégrées
-✓ Assets et images accessibles
+✓ Statistiques disponibles
+✓ Images et assets accessibles
 ```
 
-Les logs Heroku peuvent être consultés avec :
+Pour consulter les logs Heroku :
 
 ```powershell
 heroku logs --tail --app stark-coast-11185
 ```
 
-### 🔄 Maintenance
+Pour vérifier la connexion MongoDB en production :
 
-Pour consulter les variables de configuration :
+```powershell
+heroku run php bin/console doctrine:mongodb:schema:update -a stark-coast-11185
+```
+
+---
+
+# 🛠️ Maintenance Heroku
+
+### Consulter les variables de configuration
 
 ```powershell
 heroku config --app stark-coast-11185
 ```
 
-Pour redémarrer l'application :
+> ⚠️ Attention : certaines variables peuvent contenir des informations sensibles. Ne jamais publier leur valeur.
+
+### Redémarrer l'application
 
 ```powershell
 heroku restart --app stark-coast-11185
 ```
 
-Pour consulter les logs :
+### Consulter les logs
 
 ```powershell
 heroku logs --tail --app stark-coast-11185
 ```
 
-### 🔒 Sécurité
+---
+
+# 🔒 Données sensibles
 
 Les éléments suivants ne doivent jamais être commités :
 
-* mots de passe MySQL ;
-* mots de passe MongoDB ;
-* clés API ;
-* identifiants SMTP ;
-* tokens Heroku ;
-* fichiers `.env.local` ;
-* dumps SQL contenant des données réelles.
+* Mots de passe MySQL
+* Mots de passe MongoDB
+* Clés API
+* Identifiants SMTP
+* Tokens Heroku
+* Fichiers `.env.local`
+* Dumps SQL contenant des données réelles
 
-Les secrets de production sont stockés exclusivement dans les **Config Vars Heroku**.
+Les secrets de production sont stockés dans les **Config Vars Heroku**.
 
-### 📌 Résumé
+---
 
-L'environnement de production repose donc sur :
+# 👤 Compte de démonstration
 
-| Élément        | Technologie          |
-| -------------- | -------------------- |
-| Hébergement    | Heroku               |
-| Framework      | Symfony 8            |
-| PHP            | PHP 8.5              |
-| Serveur web    | Apache               |
-| Base métier    | MySQL / JawsDB       |
-| Statistiques   | MongoDB Atlas        |
-| ODM MongoDB    | Doctrine MongoDB ODM |
-| Administration | EasyAdmin            |
-| Graphiques     | Chart.js             |
-| Déploiement    | Git + Heroku         |
+Pour des raisons de sécurité, les identifiants réels d'un compte administrateur ne sont pas publiés dans ce README.
 
-Cette architecture permet de conserver **MySQL comme source de vérité pour les données métier** et d'utiliser **MongoDB Atlas pour le suivi d'activité et les statistiques**, tout en séparant les données sensibles de la configuration du code source.
+Pour tester l'administration, créer un compte de démonstration ou utiliser des identifiants fournis séparément.
 
+---
 
-## 👨‍💻 Auteur
+# 📌 Résumé technique
 
-Projet réalisé par [Samuel METELUS].
+| Élément               | Technologie          |
+| --------------------- | -------------------- |
+| Framework             | Symfony 8.0.10       |
+| Langage               | PHP 8.5.10           |
+| Base métier           | MySQL                |
+| ORM                   | Doctrine ORM         |
+| Base NoSQL            | MongoDB              |
+| ODM                   | Doctrine MongoDB ODM |
+| Administration        | EasyAdmin            |
+| Graphiques            | Chart.js             |
+| Base MySQL production | JawsDB               |
+| MongoDB production    | MongoDB Atlas        |
+| Serveur web           | Apache               |
+| Hébergement           | Heroku               |
+| Gestion du code       | Git / GitHub         |
+| Gestion de projet     | Trello               |
 
-## 📄 Licence
+---
+
+# 👨‍💻 Auteur
+
+Projet réalisé par **Samuel METELUS**.
+
+# 📄 Licence
 
 Projet éducatif développé avec Symfony.
